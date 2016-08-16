@@ -1,19 +1,21 @@
 package entidades;
 
+import java.util.UUID;
+
 public class Personaje {
 	
-	private String codigo;
-	private String nombre;
+	private UUID codigo; //La clase UUID crea identificadores únicos.
+	private String nombre; //Tiene que ser unico!
 	private double vida;
 	private double energia;
 	private int defensa;
 	private int evasion;
 	private int ptosTotales;
 	
-	public String getCodigo() {
+	public UUID getCodigo() {
 		return codigo;
 	}
-	public void setCodigo(String codigo) {
+	public void setCodigo(UUID codigo) {
 		this.codigo = codigo;
 	}
 	public String getNombre() {
@@ -51,5 +53,9 @@ public class Personaje {
 	}
 	public void setPtosTotales(int ptosTotales) {
 		this.ptosTotales = ptosTotales;
+	}
+	
+	public void generarIdentificador(){
+	    this.codigo = UUID.randomUUID();
 	}
 }
