@@ -12,6 +12,17 @@ public class Personaje {
 	private int evasion;
 	private int ptosTotales;
 	
+	public Personaje(){
+		
+	}
+	public Personaje(String nombre, int defensa, int evasion, int ptosTotales, double vida, double energia){
+		this.nombre=nombre;
+		this.defensa=defensa;
+		this.evasion=evasion;
+		this.ptosTotales=ptosTotales;
+		this.vida=vida;
+		this.energia=energia;
+	}
 	public UUID getCodigo() {
 		return codigo;
 	}
