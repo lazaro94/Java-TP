@@ -11,7 +11,8 @@ public class Personaje {
 	private int defensa;
 	private int evasion;
 	private int ptosTotales;
-	
+	public int pruebacomitandpuhs;// Prueba, borrar desp 
+	private int pija;
 	public Personaje(){
 		
 	}
@@ -65,7 +66,6 @@ public class Personaje {
 	public void setPtosTotales(int ptosTotales) {
 		this.ptosTotales = ptosTotales;
 	}
-	
 	public void generarIdentificador(){
 	    this.codigo = UUID.randomUUID();
 	}
