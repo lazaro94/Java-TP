@@ -11,8 +11,6 @@ public class Personaje {
 	private int defensa;
 	private int evasion;
 	private int ptosTotales;
-	public int pruebacomitandpuhs;// Prueba, borrar desp 
-	private int pija;
 	public Personaje(){
 		
 	}
