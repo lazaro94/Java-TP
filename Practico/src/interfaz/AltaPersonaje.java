@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import entidades.Personaje;
-import logica.ControladorAbm;
+import logica.ControladorPersonaje;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -169,11 +169,10 @@ public class AltaPersonaje {
 		if(!validarDatos()){
 			return;
 		}
-		ControladorAbm controladorAbm = new ControladorAbm();
+		ControladorPersonaje controladorAbm = new ControladorPersonaje();
 		// Tomo todos los datos, si el personaje es nuevo -->ptos totales = 0!! //
 		Personaje per = new Personaje(textNombre.getText(),Integer.parseInt(textDefensa.getText()), Integer.parseInt(textEvasion.getText()) ,
 		 0, Double.parseDouble(textVida.getText()), Double.parseDouble(textVida.getText()));
-		per.generarIdentificador();
 		controladorAbm.altaPersonaje(per);
 	}
 	

@@ -12,7 +12,7 @@ public class Personaje {
 	private int evasion;
 	private int ptosTotales;
 	public Personaje(){
-		
+		this.generarIdentificador();
 	}
 	public Personaje(String nombre, int defensa, int evasion, int ptosTotales, double vida, double energia){
 		this.nombre=nombre;
@@ -21,6 +21,7 @@ public class Personaje {
 		this.ptosTotales=ptosTotales;
 		this.vida=vida;
 		this.energia=energia;
+		this.generarIdentificador();
 	}
 	public UUID getCodigo() {
 		return codigo;
