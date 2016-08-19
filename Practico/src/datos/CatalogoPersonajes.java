@@ -58,7 +58,7 @@ public class CatalogoPersonajes {
 	public void modificarPersonaje(Personaje per) throws Exception{
 		
 		Connection conn = null;
-		//Cuando esté la BD armada definitivamente --> ORDENAR el query. (aca no hiria por ej codigo= per.gertcodigo(), nombre= per.getNombre()??)
+		//Cuando esté la BD armada definitivamente --> ORDENAR el query. (aca no va por ej: codigo= per.gertcodigo(), nombre= per.getNombre()??) 
 		String query ="UPDATE Personajes SET(" + per.getCodigo() + ", " + per.getNombre() + ", " + per.getDefensa() + "," + per.getEnergia() + ", " + per.getEvasion() + "," +
 		per.getPtosTotales() + ", " + per.getVida() + ") WHERE Personaje.Codigo=" + per.getCodigo();
 		
