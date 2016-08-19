@@ -58,7 +58,7 @@ public class CatalogoPersonajes {
 	public void modificarPersonaje(Personaje per) throws Exception{
 		
 		Connection conn = null;
-		//Cuando esté la BD armada definitivamente --> ORDENAR el query.
+		//Cuando esté la BD armada definitivamente --> ORDENAR el query. (aca no hiria por ej codigo= per.gertcodigo(), nombre= per.getNombre()??)
 		String query ="UPDATE Personajes SET(" + per.getCodigo() + ", " + per.getNombre() + ", " + per.getDefensa() + "," + per.getEnergia() + ", " + per.getEvasion() + "," +
 		per.getPtosTotales() + ", " + per.getVida() + ") WHERE Personaje.Codigo=" + per.getCodigo();
 		
@@ -79,7 +79,7 @@ public class CatalogoPersonajes {
 	public void agregarPersonaje(Personaje per) throws Exception{
 		Connection conn = null;
 		String query = "INSERT INTO Personajes VALUES(" + per.getCodigo() + ", " + per.getNombre() + ", " + per.getDefensa() + ", " +per.getEnergia() + ", " + per.getEvasion() + ", " +
-		per.getVida() + ", " + per.getPtosTotales() + ") ";
+		per.getVida() + ", " + per.getPtosTotales() + ") "; 
 		
 		try{
 			conn=con.conectar();

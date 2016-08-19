@@ -66,6 +66,6 @@ public class Personaje {
 		this.ptosTotales = ptosTotales;
 	}
 	public void generarIdentificador(){
-	    this.codigo = UUID.randomUUID();
+	    this.codigo = UUID.randomUUID(); //el codigo este, no nos conviene generarlo con un autoincrement en la BD ? 
 	}
 }
