@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import logica.ControladorPersonaje;
@@ -13,6 +14,7 @@ import entidades.Personaje;
 
 import java.awt.BorderLayout;
 import javax.swing.JTable;
+import java.awt.FlowLayout;
 
 public class Personajes {
 
@@ -52,10 +54,9 @@ public class Personajes {
 		frmPersonajes.setTitle("Personajes");
 		frmPersonajes.setBounds(100, 100, 747, 540);
 		frmPersonajes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmPersonajes.getContentPane().setLayout(null);
+		frmPersonajes.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		tablePersonajes = new JTable();
-		tablePersonajes.setBounds(315, 137, 1, 1);
 		frmPersonajes.getContentPane().add(tablePersonajes);
 	}
 	
@@ -80,7 +81,9 @@ public class Personajes {
 				tableModel.addRow(fila);
 				}
 			tablePersonajes.setModel(tableModel);
-		}
+			JScrollPane js = new JScrollPane(tablePersonajes);
+			frmPersonajes.add(js);
+			}
 		catch(Exception ex){
 			JOptionPane.showMessageDialog(null, ex.getMessage());
 		}
