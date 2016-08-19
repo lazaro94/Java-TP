@@ -16,13 +16,13 @@ public class ControladorPersonaje {
 		
 	}
 	
-	public ArrayList<Personaje> todosPersonajes(){
+	public ArrayList<Personaje> todosPersonajes() throws Exception{
 		ArrayList<Personaje> personajes = new ArrayList<Personaje>();
 		try{
 			personajes=cp.getPersonajes();
 		}
 		catch(Exception ex){
-			
+			throw ex;
 		}
 		return personajes;
 	}

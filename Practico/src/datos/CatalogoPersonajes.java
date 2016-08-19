@@ -29,7 +29,7 @@ public class CatalogoPersonajes {
 		}
 	}
 	
-	public ArrayList<Personaje> getPersonajes(){
+	public ArrayList<Personaje> getPersonajes() throws Exception{
 		Connection conn = null;
 		ArrayList<Personaje> personajes = new ArrayList<Personaje>();
 		try{
@@ -43,10 +43,10 @@ public class CatalogoPersonajes {
 			}			
 		}
 		catch(SQLException sqlex){
-			
+			throw sqlex;
 		}
 		catch(Exception ex){
-			
+			throw ex;
 		}
 		return personajes;
 	}

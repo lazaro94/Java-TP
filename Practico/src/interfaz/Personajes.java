@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,7 +16,7 @@ import javax.swing.JTable;
 
 public class Personajes {
 
-	private JFrame frame;
+	private JFrame frmPersonajes;
 	private ControladorPersonaje ctrldorPer = new ControladorPersonaje();
 	private JTable tablePersonajes;
 
@@ -27,7 +28,7 @@ public class Personajes {
 			public void run() {
 				try {
 					Personajes window = new Personajes();
-					window.frame.setVisible(true);
+					window.frmPersonajes.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,12 +48,15 @@ public class Personajes {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 747, 540);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmPersonajes = new JFrame();
+		frmPersonajes.setTitle("Personajes");
+		frmPersonajes.setBounds(100, 100, 747, 540);
+		frmPersonajes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmPersonajes.getContentPane().setLayout(null);
 		
 		tablePersonajes = new JTable();
-		frame.getContentPane().add(tablePersonajes, BorderLayout.CENTER);
+		tablePersonajes.setBounds(315, 137, 1, 1);
+		frmPersonajes.getContentPane().add(tablePersonajes);
 	}
 	
 	private void cargarPersonajes(){
@@ -60,21 +64,25 @@ public class Personajes {
 		String[] columnas = {"Codigo","Nombre","Energia","Vida","Evasion","Defensa","Puntos"};
 		DefaultTableModel tableModel = new DefaultTableModel();
 		
-		personajes=ctrldorPer.todosPersonajes();
-		tableModel.setColumnIdentifiers(columnas);
-		Object[] fila = new Object[tableModel.getColumnCount()];
-		for (int i = 0; i < personajes.size(); i++) {
+		try{
+			personajes=ctrldorPer.todosPersonajes();
+			tableModel.setColumnIdentifiers(columnas);			
+			Object[] fila = new Object[tableModel.getColumnCount()];
+			for (int i = 0; i < personajes.size(); i++) {
 
-			fila[0] = personajes.get(i).getCodigo();
-			fila[1] = personajes.get(i).getNombre();
-			fila[2] = personajes.get(i).getEnergia();
-			fila[3] = personajes.get(i).getVida();
-			fila[3] = personajes.get(i).getEvasion();
-			fila[3] = personajes.get(i).getDefensa();
-			fila[3] = personajes.get(i).getPtosTotales();
-			tableModel.addRow(fila);
-			}
-		tablePersonajes.setModel(tableModel);	
+				fila[0] = personajes.get(i).getCodigo();
+				fila[1] = personajes.get(i).getNombre();
+				fila[2] = personajes.get(i).getEnergia();
+				fila[3] = personajes.get(i).getVida();
+				fila[4] = personajes.get(i).getEvasion();
+				fila[5] = personajes.get(i).getDefensa();
+				fila[6] = personajes.get(i).getPtosTotales();
+				tableModel.addRow(fila);
+				}
+			tablePersonajes.setModel(tableModel);
+		}
+		catch(Exception ex){
+			JOptionPane.showMessageDialog(null, ex.getMessage());
+		}
 	}
-
 }
