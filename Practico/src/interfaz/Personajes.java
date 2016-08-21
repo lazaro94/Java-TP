@@ -26,8 +26,8 @@ import java.awt.event.InputMethodEvent;
 
 public class Personajes {
 
-	/*Los botones están solamente presentados.
-	 *Hay que agrupar los textbox del formulario. 
+	/* Los botones están solamente presentados.
+	 * Hay que agrupar los textbox del formulario. 
 	 * Ver como manejar en el código cuando un personaje es nuevo y cuando se editó uno existente.
 	 * Para saber si se tiene que insertar en la BD o modificar uno existente.
 	 * */
@@ -244,6 +244,18 @@ public class Personajes {
 			return;
 		}
 		Personaje per = new Personaje(textNombre.getText(), Integer.valueOf(textDefensa.getText()), Integer.valueOf(textEvasion.getText()), 0, Double.valueOf(textVida.getText()), Double.valueOf(textEnergia.getText()));
+		ControladorPersonaje ctrldor = new ControladorPersonaje();
+		
+		//PROBANDO EL ALTA//
+		try{
+			ctrldor.altaPersonaje(per);
+			informar("El personaje fue guardado correctamente");
+			
+			
+		}
+		catch(Exception ex){
+			informarError(ex.getMessage());
+		}
 	
 		//ACA HAY QUE ENVIAR LOS DATOS AL CONTROLADOR PARA GUARDAR
 		
@@ -312,6 +324,10 @@ public class Personajes {
 		JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
 	}
 	
+	private void informar(String mensaje){
+		JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
 	private Boolean validarDatos(){
 		//Valido que los textboxs contengan solamente números!
 		if (!textDefensa.getText().matches("[0-9]*") || !textEnergia.getText().matches("[0-9]*") || !textEvasion.getText().matches("[0-9]*")
@@ -319,7 +335,7 @@ public class Personajes {
 			informarError("Los datos deben ser númericos");
 			return false;
 		}
-		if (!textNombre.getText().equals("")) {
+		if (textNombre.getText().equals("")) {
 			informarError("Debe ingresar un nombre");
 			return false;
 		}

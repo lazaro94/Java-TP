@@ -1,6 +1,7 @@
 package datos;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class Conexion {
 
@@ -11,7 +12,13 @@ public class Conexion {
         try{
         	Class.forName("com.mysql.jdbc.Driver");         
             con = DriverManager.getConnection(cadena,"root","root");
-        }catch(Exception ex){
+        }
+        
+        catch(SQLException sqlex){
+        	throw sqlex;
+        }
+        
+        catch(Exception ex){
             throw ex;
         }
         return con;

@@ -16,21 +16,21 @@ public class CatalogoPersonajes {
 	
 	private Conexion con = new Conexion();
 	
-	public void guardarPersonaje(Personaje per){		
+	public void guardarPersonaje(Personaje per) throws Exception{		
 		Connection conn = null; 
 		try{
-			String query="INSERT INTO Personajes VALUES('" + per.getCodigo() + "', '" + per.getNombre() +"', '" + Integer.toString(per.getDefensa()) + 
+			String query="INSERT INTO Personajes VALUES('" + String.valueOf(per.getCodigo()) + "', '" + per.getNombre() +"', '" + Integer.toString(per.getDefensa()) + 
 			"', '" + Integer.toString(per.getEvasion()) + "', '" + Double.toString(per.getEnergia()) + "', '" + Double.toString(per.getVida()) + "', '" + Integer.toString(per.getPtosTotales()) + "')" ;
 			conn=con.conectar();
 			Statement stmt = conn.createStatement();
-			stmt.executeQuery(query);
+			stmt.executeUpdate(query);
 			conn.close();
 		}
 		catch(SQLException sqlex){
-			
+			throw sqlex;
 		}
 		catch(Exception ex){
-			
+			throw ex;
 		}
 	}
 	
@@ -67,7 +67,7 @@ public class CatalogoPersonajes {
 		try{
 			conn=con.conectar();
 			Statement stmt = conn.createStatement();
-			stmt.executeQuery(query);
+			stmt.executeUpdate(query);
 			conn.close();
 		}		
 		catch(SQLException sqlex){
@@ -86,7 +86,7 @@ public class CatalogoPersonajes {
 		try{
 			conn=con.conectar();
 			Statement stmt = conn.createStatement();
-			stmt.executeQuery(query);
+			stmt.executeUpdate(query);
 			conn.close();
 		}
 		catch(SQLException sqlex){
