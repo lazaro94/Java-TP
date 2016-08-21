@@ -12,18 +12,17 @@ import javax.swing.table.DefaultTableModel;
 import logica.ControladorPersonaje;
 import entidades.Personaje;
 
-import java.awt.BorderLayout;
 import javax.swing.JTable;
-import java.awt.FlowLayout;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.Box;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.Component;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
 
 public class Personajes {
 
@@ -41,6 +40,9 @@ public class Personajes {
 	private JTextField textEvasion;
 	private JTextField textEnergia;
 	private JTextField textDefensa;
+	private JButton btnCancelar;
+	private JButton btnGuardar;
+	private JLabel lblTotal;
 
 	/**
 	 * Launch the application.
@@ -64,6 +66,7 @@ public class Personajes {
 	public Personajes() {
 		initialize();
 		cargarPersonajes();
+		bloquearFormulario();
 	}
 
 	/**
@@ -110,77 +113,156 @@ public class Personajes {
 			tablePersonajes.setModel(tableModel);
 			JScrollPane js = new JScrollPane(tablePersonajes);
 			js.setBounds(66, 11, 636, 276);
+			frmPersonajes.getContentPane().add(js);
 			
-			textNombre = new JTextField();
-			textNombre.setBounds(311, 327, 97, 20);
-			textNombre.setColumns(10);
+			JPanel panel = new JPanel();
+			panel.setBounds(45, 322, 411, 179);
+			frmPersonajes.getContentPane().add(panel);
+			panel.setLayout(null);
 			
 			JLabel lblNombre = new JLabel("Nombre:");
-			lblNombre.setBounds(255, 330, 46, 14);
+			lblNombre.setBounds(38, 34, 41, 14);
+			panel.add(lblNombre);
+			
+			textNombre = new JTextField();
+			textNombre.setBounds(89, 31, 193, 20);
+			panel.add(textNombre);
+			textNombre.setColumns(10);
 			
 			JLabel lblVida = new JLabel("Vida:");
-			lblVida.setBounds(206, 373, 59, 14);
+			lblVida.setBounds(80, 68, 34, 14);
+			panel.add(lblVida);
 			
 			textVida = new JTextField();
-			textVida.setBounds(266, 370, 86, 20);
+			textVida.addInputMethodListener(new InputMethodListener() {
+				public void caretPositionChanged(InputMethodEvent arg0) {
+				}
+				public void inputMethodTextChanged(InputMethodEvent arg0) {
+					actualizarTotal();
+				}
+			});
+			textVida.setBounds(118, 65, 34, 20);
+			panel.add(textVida);
 			textVida.setColumns(10);
-			frmPersonajes.getContentPane().add(js);
-			frmPersonajes.getContentPane().add(textNombre);
-			frmPersonajes.getContentPane().add(lblNombre);
-			frmPersonajes.getContentPane().add(lblVida);
-			frmPersonajes.getContentPane().add(textVida);
-			
-			textEvasion = new JTextField();
-			textEvasion.setBounds(431, 370, 86, 20);
-			frmPersonajes.getContentPane().add(textEvasion);
-			textEvasion.setColumns(10);
-			
-			textEnergia = new JTextField();
-			textEnergia.setBounds(431, 415, 86, 20);
-			frmPersonajes.getContentPane().add(textEnergia);
-			textEnergia.setColumns(10);
-			
-			textDefensa = new JTextField();
-			textDefensa.setBounds(266, 415, 86, 20);
-			frmPersonajes.getContentPane().add(textDefensa);
-			textDefensa.setColumns(10);
 			
 			JLabel lblDefensa = new JLabel("Defensa:");
-			lblDefensa.setBounds(189, 418, 76, 14);
-			frmPersonajes.getContentPane().add(lblDefensa);
+			lblDefensa.setBounds(69, 107, 50, 14);
+			panel.add(lblDefensa);
+			
+			textDefensa = new JTextField();
+			textDefensa.addInputMethodListener(new InputMethodListener() {
+				public void caretPositionChanged(InputMethodEvent event) {
+				}
+				public void inputMethodTextChanged(InputMethodEvent event) {
+					actualizarTotal();
+				}
+			});
+			textDefensa.setBounds(118, 104, 34, 20);
+			panel.add(textDefensa);
+			textDefensa.setColumns(10);
 			
 			JLabel lblEvasion = new JLabel("Evasion:");
-			lblEvasion.setBounds(362, 373, 59, 14);
-			frmPersonajes.getContentPane().add(lblEvasion);
+			lblEvasion.setBounds(197, 68, 59, 14);
+			panel.add(lblEvasion);
+			
+			textEvasion = new JTextField();
+			textEvasion.addInputMethodListener(new InputMethodListener() {
+				public void caretPositionChanged(InputMethodEvent event) {
+				}
+				public void inputMethodTextChanged(InputMethodEvent event) {
+					actualizarTotal();
+				}
+			});
+			textEvasion.setBounds(249, 65, 34, 20);
+			panel.add(textEvasion);
+			textEvasion.setColumns(10);
 			
 			JLabel lblEnergia = new JLabel("Energia:");
-			lblEnergia.setBounds(362, 418, 59, 14);
-			frmPersonajes.getContentPane().add(lblEnergia);
+			lblEnergia.setBounds(197, 107, 59, 14);
+			panel.add(lblEnergia);
 			
-			Component horizontalStrut = Box.createHorizontalStrut(20);
-			horizontalStrut.setBounds(66, 309, 640, 18);
-			frmPersonajes.getContentPane().add(horizontalStrut);
+			textEnergia = new JTextField();
+			textEnergia.addInputMethodListener(new InputMethodListener() {
+				public void caretPositionChanged(InputMethodEvent event) {
+				}
+				public void inputMethodTextChanged(InputMethodEvent event) {
+					actualizarTotal();
+				}
+			});
+			textEnergia.setBounds(249, 104, 34, 20);
+			panel.add(textEnergia);
+			textEnergia.setColumns(10);
 			
-			JButton btnGuardar = new JButton("Guardar");
-			btnGuardar.setBounds(472, 456, 89, 23);
-			frmPersonajes.getContentPane().add(btnGuardar);
+			lblTotal = new JLabel("Total = 200");
+			lblTotal.setFont(new Font("Tahoma", Font.BOLD, 12));
+			lblTotal.setBounds(312, 93, 89, 14);
+			panel.add(lblTotal);
 			
-			JButton btnCancelar = new JButton("Cancelar");
-			btnCancelar.setBounds(206, 456, 89, 23);
-			frmPersonajes.getContentPane().add(btnCancelar);
+			btnGuardar = new JButton("Guardar");
+			btnGuardar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					guardar();
+				}
+			});
+			btnGuardar.setBounds(207, 140, 89, 23);
+			panel.add(btnGuardar);
 			
-			JButton btnEditar = new JButton("Editar");
-			btnEditar.setBounds(332, 456, 89, 23);
-			frmPersonajes.getContentPane().add(btnEditar);
+			btnCancelar = new JButton("Cancelar");
+			btnCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					cancelar();
+				}
+			});
+			btnCancelar.setBounds(63, 140, 89, 23);
+			panel.add(btnCancelar);
 			
 			JButton btnNuevo = new JButton("Nuevo");
-			btnNuevo.setBounds(91, 456, 89, 23);
+			btnNuevo.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					nuevo();
+				}
+			});
+			btnNuevo.setBounds(494, 411, 89, 23);
 			frmPersonajes.getContentPane().add(btnNuevo);
+			
+			JButton btnEditar = new JButton("Editar");
+			btnEditar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					editar();
+				}
+			});
+			btnEditar.setBounds(494, 351, 89, 23);
+			frmPersonajes.getContentPane().add(btnEditar);
 			}
 		catch(Exception ex){
 			JOptionPane.showMessageDialog(null, ex.getMessage());
 		}
 	}
+	// CODIGO DE LOS EVENTOS DE LOS BOTONES //
+	private void guardar(){
+		if (!validarDatos()){ //El mismo método informa el error
+			return;
+		}
+		Personaje per = new Personaje(textNombre.getText(), Integer.valueOf(textDefensa.getText()), Integer.valueOf(textEvasion.getText()), 0, Double.valueOf(textVida.getText()), Double.valueOf(textEnergia.getText()));
+	
+		//ACA HAY QUE ENVIAR LOS DATOS AL CONTROLADOR PARA GUARDAR
+		
+	}
+	
+	private void cancelar(){
+		limpiarFormulario();
+		bloquearFormulario();
+	}
+	
+	private void nuevo(){
+		limpiarFormulario();
+		habilitarFormulario();
+	}
+	
+	private void editar(){
+		habilitarFormulario();
+	}
+	 //HASTA ACA//
 	
 	private void actualizarFormulario(){
 		int fila;
@@ -190,5 +272,57 @@ public class Personajes {
 		textVida.setText(String.valueOf(tablePersonajes.getValueAt(fila, 3)));
 		textEvasion.setText(String.valueOf(tablePersonajes.getValueAt(fila, 4)));
 		textDefensa.setText(String.valueOf(tablePersonajes.getValueAt(fila, 5)));					
+	}
+	
+	private void limpiarFormulario(){
+		textNombre.setText("");
+		textEnergia.setText("");
+		textVida.setText("");
+		textEvasion.setText("");
+		textDefensa.setText("");
+	}
+	
+	private void bloquearFormulario(){
+		textNombre.setEnabled(false);
+		textEnergia.setEnabled(false);
+		textVida.setEnabled(false);
+		textEvasion.setEnabled(false);
+		textDefensa.setEnabled(false);
+		btnGuardar.setEnabled(false);
+		btnCancelar.setEnabled(false);
+	}
+	
+	private void habilitarFormulario(){
+		textNombre.setEnabled(true);
+		textEnergia.setEnabled(true);
+		textVida.setEnabled(true);
+		textEvasion.setEnabled(true);
+		textDefensa.setEnabled(true);
+		btnGuardar.setEnabled(true);
+		btnCancelar.setEnabled(true);
+	}
+	
+	private void actualizarTotal(){
+		int total = 0;
+		total = Integer.valueOf(textEnergia.getText()) + Integer.valueOf(textVida.getText()) + Integer.valueOf(textEvasion.getText()) + Integer.valueOf(textDefensa.getText());
+		lblTotal.setText("Total= " + String.valueOf(200-total));	
+		}
+	
+	private void informarError(String mensaje){
+		JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	private Boolean validarDatos(){
+		//Valido que los textboxs contengan solamente números!
+		if (!textDefensa.getText().matches("[0-9]*") || !textEnergia.getText().matches("[0-9]*") || !textEvasion.getText().matches("[0-9]*")
+		|| !textVida.getText().matches("[0-9]*")){			
+			informarError("Los datos deben ser númericos");
+			return false;
+		}
+		if (!textNombre.getText().equals("")) {
+			informarError("Debe ingresar un nombre");
+			return false;
+		}
+		return true;
 	}
 }
