@@ -3,9 +3,9 @@ package entidades;
 import java.util.UUID;
 
 public class Personaje {
-	
-	private UUID codigo; //La clase UUID crea identificadores únicos.
-	private String nombre; //Tiene que ser unico!
+	//Tanto el codigo como el nombre deben controlarse con un índice UNIQUE en la BD.
+	private UUID codigo; //La clase UUID crea identificadores únicos. --> Requerimiento del TP.
+	private String nombre; //Tiene que ser unico! --> Requerimiento
 	private double vida;
 	private double energia;
 	private int defensa;
