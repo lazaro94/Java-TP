@@ -243,7 +243,7 @@ public class Personajes {
 		if (!validarDatos()){ //El mismo método informa el error
 			return;
 		}
-		Personaje per = new Personaje(textNombre.getText(), Integer.valueOf(textDefensa.getText()), Integer.valueOf(textEvasion.getText()), 0, Double.valueOf(textVida.getText()), Double.valueOf(textEnergia.getText()));
+		Personaje per = new Personaje(1, textNombre.getText(), Integer.valueOf(textDefensa.getText()), Integer.valueOf(textEvasion.getText()), 0, Double.valueOf(textVida.getText()), Double.valueOf(textEnergia.getText()));
 		ControladorPersonaje ctrldor = new ControladorPersonaje();
 		
 		//PROBANDO EL ALTA//

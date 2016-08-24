@@ -19,7 +19,7 @@ public class CatalogoPersonajes {
 	public void guardarPersonaje(Personaje per) throws Exception{		
 		Connection conn = null; 
 		try{
-			String query="INSERT INTO Personajes VALUES('" + String.valueOf(per.getCodigo()) + "', '" + per.getNombre() +"', '" + Integer.toString(per.getDefensa()) + 
+			String query="INSERT INTO Personajes (Nombre, Defensa, Energia, Evasion, Vida, Puntos) VALUES('" + per.getNombre() +"', '" + Integer.toString(per.getDefensa()) + 
 			"', '" + Integer.toString(per.getEvasion()) + "', '" + Double.toString(per.getEnergia()) + "', '" + Double.toString(per.getVida()) + "', '" + Integer.toString(per.getPtosTotales()) + "')" ;
 			conn=con.conectar();
 			Statement stmt = conn.createStatement();
@@ -44,7 +44,7 @@ public class CatalogoPersonajes {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while(rs.next()){
-				Personaje per = new Personaje(rs.getString("Nombre"), rs.getInt("Defensa"), rs.getInt("Evasion"), rs.getInt("Puntos"), rs.getDouble("Vida"), rs.getDouble("Energia"));
+				Personaje per = new Personaje(rs.getInt("IdPersonaje"), rs.getString("Nombre"), rs.getInt("Defensa"), rs.getInt("Evasion"), rs.getInt("Puntos"), rs.getDouble("Vida"), rs.getDouble("Energia"));
 				personajes.add(per);
 			}			
 		}
@@ -61,8 +61,8 @@ public class CatalogoPersonajes {
 		
 		Connection conn = null;
 		//Cuando esté la BD armada definitivamente --> ORDENAR el query. (aca no va por ej: codigo= per.gertcodigo(), nombre= per.getNombre()??) 
-		String query ="UPDATE Personajes SET(Codigo=" + per.getCodigo() + ", Nombre=" + per.getNombre() + ", Defensa" + per.getDefensa() + ", Energia=" + per.getEnergia() + ", Evasion=" + per.getEvasion() +
-	    ", Puntos="  +	per.getPtosTotales() + ", Vida=" + per.getVida() + ") WHERE Personaje.Codigo=" + per.getCodigo();
+		String query ="UPDATE Personajes SET( Nombre=" + per.getNombre() + ", Defensa" + per.getDefensa() + ", Energia=" + per.getEnergia() + ", Evasion=" + per.getEvasion() +
+	    ", Puntos="  +	per.getPtosTotales() + ", Vida=" + per.getVida() + ") WHERE Personaje.IdPersonaje=" + per.getCodigo();// De donde trae el codigo ese? No entender yo
 		
 		try{
 			conn=con.conectar();
@@ -80,7 +80,7 @@ public class CatalogoPersonajes {
 	
 	public void agregarPersonaje(Personaje per) throws Exception{
 		Connection conn = null;
-		String query = "INSERT INTO Personajes VALUES(" + per.getCodigo() + ", " + per.getNombre() + ", " + per.getDefensa() + ", " +per.getEnergia() + ", " + per.getEvasion() + ", " +
+		String query = "INSERT INTO Personajes (Nombre, Defensa, Energia, Evasion, Vida, Puntos) VALUES(" + per.getNombre() + ", " + per.getDefensa() + ", " +per.getEnergia() + ", " + per.getEvasion() + ", " +
 		per.getVida() + ", " + per.getPtosTotales() + ") "; 
 		
 		try{

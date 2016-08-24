@@ -4,29 +4,28 @@ import java.util.UUID;
 
 public class Personaje {
 	//Tanto el codigo como el nombre deben controlarse con un índice UNIQUE en la BD.
-	private UUID codigo; //La clase UUID crea identificadores únicos. --> Requerimiento del TP.
+	private int codigo; // Usamos AI desde la BD Requerimiento del TP.
 	private String nombre; //Tiene que ser unico! --> Requerimiento
 	private double vida;
 	private double energia;
 	private int defensa;
 	private int evasion;
 	private int ptosTotales;
-	public Personaje(){
-		this.generarIdentificador();
-	}
-	public Personaje(String nombre, int defensa, int evasion, int ptosTotales, double vida, double energia){
+	
+	public Personaje(int codigo, String nombre, int defensa, int evasion, int ptosTotales, double vida, double energia){
+		this.codigo=codigo;
 		this.nombre=nombre;
 		this.defensa=defensa;
 		this.evasion=evasion;
 		this.ptosTotales=ptosTotales;
 		this.vida=vida;
 		this.energia=energia;
-		this.generarIdentificador();
+		
 	}
-	public UUID getCodigo() {
+	public int getCodigo() {
 		return codigo;
 	}
-	public void setCodigo(UUID codigo) {
+	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 	public String getNombre() {
@@ -65,7 +64,5 @@ public class Personaje {
 	public void setPtosTotales(int ptosTotales) {
 		this.ptosTotales = ptosTotales;
 	}
-	public void generarIdentificador(){
-	    this.codigo = UUID.randomUUID(); //el codigo este, no nos conviene generarlo con un autoincrement en la BD ? 
-	}
+	
 }
