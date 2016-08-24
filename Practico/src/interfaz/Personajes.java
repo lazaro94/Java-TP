@@ -243,8 +243,14 @@ public class Personajes {
 		if (!validarDatos()){ //El mismo método informa el error
 			return;
 		}
-		Personaje per = new Personaje(1, textNombre.getText(), Integer.valueOf(textDefensa.getText()), Integer.valueOf(textEvasion.getText()), 0, Double.valueOf(textVida.getText()), Double.valueOf(textEnergia.getText()));
+		int fila;
+		fila=tablePersonajes.getSelectedRow();
+		
+	
+		Personaje per = new Personaje(Integer.valueOf(String.valueOf(tablePersonajes.getValueAt(fila, 0))), textNombre.getText(), Integer.valueOf(textDefensa.getText()), Integer.valueOf(textEvasion.getText()), 0, Double.valueOf(textVida.getText()), Double.valueOf(textEnergia.getText()));
+		//MIRAR ACA JAJAJAJAJA de Objet a String - De String a INT.   
 		ControladorPersonaje ctrldor = new ControladorPersonaje();
+		
 		
 		//PROBANDO EL ALTA//
 		try{

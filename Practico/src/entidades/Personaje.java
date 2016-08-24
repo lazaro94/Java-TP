@@ -1,6 +1,6 @@
 package entidades;
 
-import java.util.UUID;
+
 
 public class Personaje {
 	//Tanto el codigo como el nombre deben controlarse con un índice UNIQUE en la BD.

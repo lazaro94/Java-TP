@@ -8,6 +8,7 @@ import entidades.Personaje;
 public class ControladorPersonaje {
 
 	private CatalogoPersonajes cp = new CatalogoPersonajes();
+	
 	public void altaPersonaje(Personaje per) throws Exception{
 		
 		try{
