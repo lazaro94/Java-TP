@@ -60,8 +60,8 @@ public class CatalogoPersonajes {
 	public void modificarPersonaje(Personaje per) throws Exception{
 		
 		Connection conn = null;
-		String query ="UPDATE Personajes SET( Nombre=" + per.getNombre() + ", Defensa" + per.getDefensa() + ", Energia=" + per.getEnergia() + ", Evasion=" + per.getEvasion() +
-	    ", Puntos="  +	per.getPtosTotales() + ", Vida=" + per.getVida() + ") WHERE Personaje.IdPersonaje=" + per.getCodigo();// De donde trae el codigo ese? No entender yo
+		String query ="UPDATE Personajes SET Nombre='" + per.getNombre() + "', Defensa='" + per.getDefensa() + "', Energia='" + per.getEnergia() + "', Evasion='" + per.getEvasion() +
+	    "', Puntos='"  +	per.getPtosTotales() + "', Vida='" + per.getVida() + "' WHERE Personajes.IdPersonaje=" + per.getCodigo();// De donde trae el codigo ese? No entender yo
 		
 		try{
 			conn=con.conectar();
@@ -79,7 +79,7 @@ public class CatalogoPersonajes {
 	
 	public void agregarPersonaje(Personaje per) throws Exception{
 		Connection conn = null;
-		String query = "INSERT INTO Personajes (Nombre, Defensa, Energia, Evasion, Vida, Puntos) VALUES(" + per.getNombre() + ", " + per.getDefensa() + ", " +per.getEnergia() + ", " + per.getEvasion() + ", " +
+		String query = "INSERT INTO Personajes (Nombre, Defensa, Energia, Evasion, Vida, Puntos) VALUES('" + per.getNombre() + "', " + per.getDefensa() + ", " +per.getEnergia() + ", " + per.getEvasion() + ", " +
 		per.getVida() + ", " + per.getPtosTotales() + ") "; 
 		
 		try{
