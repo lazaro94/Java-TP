@@ -60,7 +60,6 @@ public class CatalogoPersonajes {
 	public void modificarPersonaje(Personaje per) throws Exception{
 		
 		Connection conn = null;
-		//Cuando esté la BD armada definitivamente --> ORDENAR el query. (aca no va por ej: codigo= per.gertcodigo(), nombre= per.getNombre()??) 
 		String query ="UPDATE Personajes SET( Nombre=" + per.getNombre() + ", Defensa" + per.getDefensa() + ", Energia=" + per.getEnergia() + ", Evasion=" + per.getEvasion() +
 	    ", Puntos="  +	per.getPtosTotales() + ", Vida=" + per.getVida() + ") WHERE Personaje.IdPersonaje=" + per.getCodigo();// De donde trae el codigo ese? No entender yo
 		

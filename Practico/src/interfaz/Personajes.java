@@ -34,6 +34,7 @@ public class Personajes {
 	
 	private JFrame frmPersonajes;
 	private ControladorPersonaje ctrldorPer = new ControladorPersonaje();
+	private Personaje personaje = new Personaje();
 	private JTable tablePersonajes;
 	private JTextField textNombre;
 	private JTextField textVida;
@@ -241,29 +242,26 @@ public class Personajes {
 	// CODIGO DE LOS EVENTOS DE LOS BOTONES //
 	private void guardar(){
 		if (!validarDatos()){ //El mismo método informa el error
-			return;
+			//return; //COMENTO PARA PROBAR EL ALTA Y MODIFICACION
 		}
-		int fila;
-		fila=tablePersonajes.getSelectedRow();
+		//YA NO LO USO
+		//int fila;
+		//fila=tablePersonajes.getSelectedRow();	
+		//Personaje per = new Personaje(Integer.valueOf(String.valueOf(tablePersonajes.getValueAt(fila, 0))), textNombre.getText(), Integer.valueOf(textDefensa.getText()), Integer.valueOf(textEvasion.getText()), 0, Double.valueOf(textVida.getText()), Double.valueOf(textEnergia.getText()));
+		//HASTA ACA
 		
-	
-		Personaje per = new Personaje(Integer.valueOf(String.valueOf(tablePersonajes.getValueAt(fila, 0))), textNombre.getText(), Integer.valueOf(textDefensa.getText()), Integer.valueOf(textEvasion.getText()), 0, Double.valueOf(textVida.getText()), Double.valueOf(textEnergia.getText()));
-		//MIRAR ACA JAJAJAJAJA de Objet a String - De String a INT.   
-		ControladorPersonaje ctrldor = new ControladorPersonaje();
-		
-		
-		//PROBANDO EL ALTA//
+		personaje.setDefensa(Integer.valueOf(textDefensa.getText()));
+		personaje.setEnergia(Double.valueOf(textEnergia.getText()));
+		personaje.setEvasion(Integer.valueOf(textEvasion.getText()));
+		personaje.setNombre(textNombre.getText());
+		personaje.setVida(Double.valueOf(textVida.getText()));
 		try{
-			ctrldor.altaPersonaje(per);
-			informar("El personaje fue guardado correctamente");
-			
-			
+			ctrldorPer.modificarPersonaje(personaje);
+			informar("El personaje fue guardado correctamente");						
 		}
 		catch(Exception ex){
 			informarError(ex.getMessage());
 		}
-	
-		//ACA HAY QUE ENVIAR LOS DATOS AL CONTROLADOR PARA GUARDAR
 		
 	}
 	
@@ -275,10 +273,16 @@ public class Personajes {
 	private void nuevo(){
 		limpiarFormulario();
 		habilitarFormulario();
+		personaje.setCodigo(0);
+		personaje.setPtosTotales(0);
 	}
 	
 	private void editar(){
 		habilitarFormulario();
+		//ESTO ASI NO ME GUSTA MUCHOO
+		int fila=tablePersonajes.getSelectedRow();
+		personaje.setCodigo(Integer.valueOf(String.valueOf(tablePersonajes.getValueAt(fila, 0))));
+		personaje.setPtosTotales(Integer.valueOf((String)tablePersonajes.getValueAt(fila, 6)));
 	}
 	 //HASTA ACA//
 	

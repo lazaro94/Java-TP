@@ -22,6 +22,10 @@ public class Personaje {
 		this.energia=energia;
 		
 	}
+	
+	public Personaje(){
+		
+	}
 	public int getCodigo() {
 		return codigo;
 	}

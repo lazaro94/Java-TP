@@ -8,17 +8,20 @@ import entidades.Personaje;
 public class ControladorPersonaje {
 
 	private CatalogoPersonajes cp = new CatalogoPersonajes();
-	
-	public void altaPersonaje(Personaje per) throws Exception{
+	public void modificarPersonaje(Personaje per) throws Exception{
 		
 		try{
-			cp.guardarPersonaje(per);
+			if(per.getCodigo()>0){
+				cp.modificarPersonaje(per);
+			}
+			else {
+				cp.agregarPersonaje(per);
+			}
 		}
 		catch(Exception ex){
 			throw ex;
 		}
-	}
-	public void modificarPersonaje(Personaje per){
+
 		
 	}
 	
