@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import logica.ControladorPersonaje;
+import util.Validate;
 import entidades.Personaje;
 
 import javax.swing.JTable;
@@ -44,6 +45,8 @@ public class Personajes {
 	private JButton btnCancelar;
 	private JButton btnGuardar;
 	private JLabel lblTotal;
+	
+	private Validate validate;
 
 	/**
 	 * Launch the application.
@@ -67,7 +70,7 @@ public class Personajes {
 	public Personajes() {
 		initialize();
 		cargarPersonajes();
-		bloquearFormulario();
+		noEditable();
 	}
 
 	/**
@@ -242,14 +245,8 @@ public class Personajes {
 	// CODIGO DE LOS EVENTOS DE LOS BOTONES //
 	private void guardar(){
 		if (!validarDatos()){ //El mismo método informa el error
-			//return; //COMENTO PARA PROBAR EL ALTA Y MODIFICACION
-		}
-		//YA NO LO USO
-		//int fila;
-		//fila=tablePersonajes.getSelectedRow();	
-		//Personaje per = new Personaje(Integer.valueOf(String.valueOf(tablePersonajes.getValueAt(fila, 0))), textNombre.getText(), Integer.valueOf(textDefensa.getText()), Integer.valueOf(textEvasion.getText()), 0, Double.valueOf(textVida.getText()), Double.valueOf(textEnergia.getText()));
-		//HASTA ACA
-		
+			return; 
+		}		
 		personaje.setDefensa(Integer.valueOf(textDefensa.getText()));
 		personaje.setEnergia(Double.valueOf(textEnergia.getText()));
 		personaje.setEvasion(Integer.valueOf(textEvasion.getText()));
@@ -257,6 +254,8 @@ public class Personajes {
 		personaje.setVida(Double.valueOf(textVida.getText()));
 		try{
 			ctrldorPer.modificarPersonaje(personaje);
+			noEditable();
+			limpiarFormulario();
 			informar("El personaje fue guardado correctamente");						
 		}
 		catch(Exception ex){
@@ -267,18 +266,18 @@ public class Personajes {
 	
 	private void cancelar(){
 		limpiarFormulario();
-		bloquearFormulario();
+		noEditable();
 	}
 	
 	private void nuevo(){
 		limpiarFormulario();
-		habilitarFormulario();
+		editable();
 		personaje.setCodigo(0);
 		personaje.setPtosTotales(0);
 	}
 	
 	private void editar(){
-		habilitarFormulario();
+		editable();
 		//ESTO ASI NO ME GUSTA MUCHOO
 		int fila=tablePersonajes.getSelectedRow();
 		personaje.setCodigo(Integer.valueOf(String.valueOf(tablePersonajes.getValueAt(fila, 0))));
@@ -304,7 +303,7 @@ public class Personajes {
 		textDefensa.setText("");
 	}
 	
-	private void bloquearFormulario(){
+	private void noEditable(){
 		textNombre.setEnabled(false);
 		textEnergia.setEnabled(false);
 		textVida.setEnabled(false);
@@ -314,7 +313,7 @@ public class Personajes {
 		btnCancelar.setEnabled(false);
 	}
 	
-	private void habilitarFormulario(){
+	private void editable(){
 		textNombre.setEnabled(true);
 		textEnergia.setEnabled(true);
 		textVida.setEnabled(true);
@@ -340,12 +339,13 @@ public class Personajes {
 	
 	private Boolean validarDatos(){
 		//Valido que los textboxs contengan solamente números!
-		if (!textDefensa.getText().matches("[0-9]*") || !textEnergia.getText().matches("[0-9]*") || !textEvasion.getText().matches("[0-9]*")
-		|| !textVida.getText().matches("[0-9]*")){			
+		validate = new Validate();
+		if(!validate.numeroDecimal(textDefensa.getText()) || !validate.numeroDecimal(textEnergia.getText()) || !validate.numeroDecimal(textEvasion.getText()) || !validate.numeroDecimal(textVida.getText())){			
 			informarError("Los datos deben ser númericos");
 			return false;
 		}
-		if (textNombre.getText().equals("")) {
+		//El nombre no puede estar vacío
+		if (!validate.notEmpty(textNombre.getText())) {
 			informarError("Debe ingresar un nombre");
 			return false;
 		}
