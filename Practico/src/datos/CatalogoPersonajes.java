@@ -1,11 +1,10 @@
 package datos;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
+
 import entidades.Personaje;
+import util.AppException;
 
 public class CatalogoPersonajes {
 
@@ -14,23 +13,34 @@ public class CatalogoPersonajes {
 	//TODOS LOS VALORES QUE NO SON STRING HAY QUE CONVERTIRLOS.
 	//METODO GENERICO PARA EJECUTAR LOS QUERY.
 	
-	private Conexion con = new Conexion();
-	
-	public void guardarPersonaje(Personaje per) throws Exception{		
-		Connection conn = null; 
+	public void agregarPersonaje(Personaje per) throws Exception{
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+		
 		try{
 			String query="INSERT INTO Personajes (Nombre, Defensa, Energia, Evasion, Vida, Puntos) VALUES('" + per.getNombre() +"', '" + Integer.toString(per.getDefensa()) + 
 			"', '" + Integer.toString(per.getEvasion()) + "', '" + Double.toString(per.getEnergia()) + "', '" + Double.toString(per.getVida()) + "', '" + Integer.toString(per.getPtosTotales()) + "')" ;
-			conn=con.conectar();
-			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(query);
-			conn.close();
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(query);
+			stmt.execute();
 		}
 		catch(SQLException sqlex){
 			throw sqlex;
 		}
 		catch(Exception ex){
 			throw ex;
+		}
+		finally{
+			try {
+				if(rs!=null) rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} 
+			catch (AppException appex) {
+				appex.printStackTrace();
+			}
+			catch (SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
 		}
 	}
 	
@@ -69,25 +79,6 @@ public class CatalogoPersonajes {
 			stmt.executeUpdate(query);
 			conn.close();
 		}		
-		catch(SQLException sqlex){
-			throw sqlex;
-		}
-		catch(Exception ex){
-			throw ex;
-		}
-	}
-	
-	public void agregarPersonaje(Personaje per) throws Exception{
-		Connection conn = null;
-		String query = "INSERT INTO Personajes (Nombre, Defensa, Energia, Evasion, Vida, Puntos) VALUES('" + per.getNombre() + "', " + per.getDefensa() + ", " +per.getEnergia() + ", " + per.getEvasion() + ", " +
-		per.getVida() + ", " + per.getPtosTotales() + ") "; 
-		
-		try{
-			conn=con.conectar();
-			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(query);
-			conn.close();
-		}
 		catch(SQLException sqlex){
 			throw sqlex;
 		}
