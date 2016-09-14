@@ -7,11 +7,6 @@ import entidades.Personaje;
 import util.AppException;
 
 public class CatalogoPersonajes {
-
-	//CORREGIR ORDEN DE LOS DATOS EN EL QUERY CON LAS COLUMNAS DE LA BD.
-	//MANEJO DE EXCEPCIONES.
-	//TODOS LOS VALORES QUE NO SON STRING HAY QUE CONVERTIRLOS.
-	//METODO GENERICO PARA EJECUTAR LOS QUERY.
 	
 	public void agregarPersonaje(Personaje per) throws Exception{
 		ResultSet rs = null;
@@ -45,15 +40,16 @@ public class CatalogoPersonajes {
 	}
 	
 	public ArrayList<Personaje> getPersonajes() throws Exception{		
-		Connection conn = null;
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 		ArrayList<Personaje> personajes = new ArrayList<Personaje>();
 		String query = "SELECT * FROM Personajes";
 		
 		try{			
-			conn=con.conectar();
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
-			while(rs.next()){
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(query);
+			rs = stmt.executeQuery();
+			while(rs!=null && rs.next()){
 				Personaje per = new Personaje(rs.getInt("IdPersonaje"), rs.getString("Nombre"), rs.getInt("Defensa"), rs.getInt("Evasion"), rs.getInt("Puntos"), rs.getDouble("Vida"), rs.getDouble("Energia"));
 				personajes.add(per);
 			}			
@@ -64,26 +60,56 @@ public class CatalogoPersonajes {
 		catch(Exception ex){
 			throw ex;
 		}
+		finally{
+			try {
+				if(rs!=null){
+					rs.close();
+				}
+				if(stmt!=null){
+					stmt.close();
+				}
+				FactoryConexion.getInstancia().releaseConn();
+			} 
+			catch(SQLException sqlex){
+				throw sqlex;
+			}
+			catch (Exception ex) {
+				throw ex;
+			}
+		}
 		return personajes;
 	}
 	
 	public void modificarPersonaje(Personaje per) throws Exception{
+		PreparedStatement stmt = null;
 		
-		Connection conn = null;
 		String query ="UPDATE Personajes SET Nombre='" + per.getNombre() + "', Defensa='" + per.getDefensa() + "', Energia='" + per.getEnergia() + "', Evasion='" + per.getEvasion() +
 	    "', Puntos='"  +	per.getPtosTotales() + "', Vida='" + per.getVida() + "' WHERE Personajes.IdPersonaje=" + per.getCodigo();// De donde trae el codigo ese? No entender yo
 		
 		try{
-			conn=con.conectar();
-			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(query);
-			conn.close();
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(query);
+			stmt.executeUpdate();
 		}		
 		catch(SQLException sqlex){
 			throw sqlex;
 		}
 		catch(Exception ex){
 			throw ex;
+		}
+		finally{
+			try {
+				if(stmt!=null){
+					stmt.close();
+				}
+				FactoryConexion.getInstancia().releaseConn();
+			}
+			catch(SQLException sqlex){
+				throw sqlex;
+			}
+			catch (Exception ex) {
+				// TODO Auto-generated catch block
+				throw ex;
+			}
 		}
 	}
 }

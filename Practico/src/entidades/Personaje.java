@@ -19,8 +19,7 @@ public class Personaje {
 		this.evasion=evasion;
 		this.ptosTotales=ptosTotales;
 		this.vida=vida;
-		this.energia=energia;
-		
+		this.energia=energia;		
 	}
 	
 	public Personaje(){
