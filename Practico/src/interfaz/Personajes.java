@@ -95,7 +95,7 @@ public class Personajes {
 	
 	private void cargarPersonajes(){
 		ArrayList<Personaje> personajes = new ArrayList<Personaje>();
-		String[] columnas = {"Codigo","Nombre","Energia","Vida","Evasion","Defensa","Puntos"};
+		String[] columnas = {"ID Personaje","Nombre","Energia","Vida","Evasion","Defensa","Puntos"};
 		DefaultTableModel tableModel = new DefaultTableModel();
 		
 		try{
