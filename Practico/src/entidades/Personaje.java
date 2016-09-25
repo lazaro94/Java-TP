@@ -1,9 +1,9 @@
 package entidades;
 
-
+import java.util.Random;
 
 public class Personaje {
-	//Tanto el codigo como el nombre deben controlarse con un índice UNIQUE en la BD.
+	//Tanto el codigo como el nombre deben controlarse con un ï¿½ndice UNIQUE en la BD.
 	private int codigo; // Usamos AI desde la BD Requerimiento del TP.
 	private String nombre; //Tiene que ser unico! --> Requerimiento
 	private double vida;
@@ -68,4 +68,16 @@ public class Personaje {
 		this.ptosTotales = ptosTotales;
 	}
 	
+	public void atacar(){
+		
+	}
+	
+	public boolean evadeAtaque(){
+		Random r = new Random();
+		if (r.nextDouble()*100<this.defensa){
+			return false;
+		} else {
+			return true;
+		}		
+	}
 }

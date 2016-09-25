@@ -12,14 +12,14 @@ public class ControladorBatallas {
 		Random r = new Random();
 		
 		if(atacante.getEnergia()<energia) {
-			throw new AppException("La energía a utilizar es mayor a la disponible");
+			throw new AppException("La energï¿½a a utilizar es mayor a la disponible");
 		}
 		
-		if ((r.nextFloat()*100)<atacado.getDefensa()){
-			//RECIBE EL ATAQUE
+		if (atacado.evadeAtaque()){
+			//EVADE EL ATAQUE
 		}
 		else {
-			//EVADE EL ATAQUE
+			//RECIBE EL ATAQUE
 		}
 		atacante.setEnergia((atacante.getEnergia()-energia));
 	}
