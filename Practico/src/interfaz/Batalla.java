@@ -18,13 +18,24 @@ import javax.swing.table.DefaultTableModel;
 
 import entidades.Personaje;
 import logica.ControladorPersonaje;
+import java.awt.BorderLayout;
+import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.GridLayout;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
 
 public class Batalla {
 
 	private JFrame frmBatalla;
-	private JTable tablePlayers1;
-	private JTable tablePlayers2;
 	private ControladorPersonaje ctrldorPer;
+	private JPanel panelWest;
+	private JPanel panelEast;
+	private panelSeleccion panelJug1 = new panelSeleccion();
+	private panelSeleccion panelJug2 = new panelSeleccion();
 
 	/**
 	 * Launch the application.
@@ -47,7 +58,6 @@ public class Batalla {
 	 */
 	public Batalla() {
 		initialize();
-		loadTables();
 	}
 
 	/**
@@ -57,46 +67,27 @@ public class Batalla {
 		frmBatalla = new JFrame();
 		frmBatalla.setBounds(100, 100, 850, 513);
 		frmBatalla.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmBatalla.getContentPane().setLayout(null);
+		frmBatalla.getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblJugador_1 = new JLabel("JUGADOR 2");
-		lblJugador_1.setBounds(620, 36, 109, 14);
-		frmBatalla.getContentPane().add(lblJugador_1);
+		panelWest = new JPanel();
+		frmBatalla.getContentPane().add(panelWest, BorderLayout.WEST);
 		
-		tablePlayers1 = new JTable();
-		tablePlayers1.setBounds(63, 316, 109, -244);
-		frmBatalla.getContentPane().add(tablePlayers1);
-		tablePlayers2 = new JTable();
-		tablePlayers2.setBounds(550, 279, -89, -202);
-		frmBatalla.getContentPane().add(tablePlayers2);
+		panelEast = new JPanel();
+		frmBatalla.getContentPane().add(panelEast, BorderLayout.EAST);
+		addPanels();
 	}
 	
-	private void loadTables(){
-		ArrayList<Personaje> personajes = new ArrayList<Personaje>();
-		ctrldorPer = new ControladorPersonaje();
-		String[] columnas = {"Codigo","Nombre","Energia","Vida","Evasion","Defensa","Puntos"};
-		DefaultTableModel tableModel = new DefaultTableModel();
-		
-		try {
-			personajes=ctrldorPer.todosPersonajes();
-			tableModel.setColumnIdentifiers(columnas);			
-			Object[] fila = new Object[tableModel.getColumnCount()];
-			for (int i = 0; i < personajes.size(); i++) {
-
-				fila[0] = personajes.get(i).getCodigo();
-				fila[1] = personajes.get(i).getNombre();
-				fila[2] = personajes.get(i).getEnergia();
-				fila[3] = personajes.get(i).getVida();
-				fila[4] = personajes.get(i).getEvasion();
-				fila[5] = personajes.get(i).getDefensa();
-				fila[6] = personajes.get(i).getPtosTotales();
-				tableModel.addRow(fila);
-				}
-			frmBatalla.getContentPane().setLayout(null);
-			tablePlayers1.setModel(tableModel);
-			tablePlayers2.setModel(tableModel);
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-		}
+	private void addPanels(){
+		panelJug1.setTitle("Jugador 1");
+		panelJug2.setTitle("Jugador 2");
+		panelWest.removeAll();
+		panelWest.add(panelJug1);
+		panelWest.revalidate();
+		panelWest.repaint();
+		panelEast.removeAll();
+		panelEast.add(panelJug2);
+		panelEast.revalidate();
+		panelEast.repaint();
 	}
+
 }

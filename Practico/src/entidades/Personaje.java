@@ -80,4 +80,15 @@ public class Personaje {
 			return true;
 		}		
 	}
+	
+	//Uso este override para agregar personajes a los combobox
+	@Override
+	public String toString(){
+		return (this.getNombre());
+	}
+	
+	@Override
+	public boolean equals(Object per){
+		return per instanceof Personaje && ((Personaje)per).getNombre() == this.getNombre();
+	}
 }

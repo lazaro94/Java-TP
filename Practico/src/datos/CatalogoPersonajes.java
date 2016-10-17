@@ -112,4 +112,44 @@ public class CatalogoPersonajes {
 			}
 		}
 	}
+	
+	public Personaje getByNombre(Personaje p) throws Exception{
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String query = "SELECT * FROM Personajes WHERE Nombre=?";
+		try{
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(query);
+			stmt.setString(1, p.getNombre());
+			rs=stmt.executeQuery();
+			if(rs.next()){
+				p.setCodigo(rs.getInt("idPersonaje"));
+				p.setDefensa(rs.getInt("Defensa"));
+				p.setEnergia(rs.getDouble("Energia"));
+				p.setEvasion(rs.getInt("Evasion"));
+				p.setPtosTotales(rs.getInt("PuntosTotales"));
+				p.setVida(rs.getDouble("Vida"));
+			}
+		}
+		catch(SQLException sqlex){
+			throw sqlex;
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		finally{
+			try {
+				if(stmt!=null){
+					stmt.close();
+				}
+				FactoryConexion.getInstancia().releaseConn();
+			}
+			catch(SQLException sqlex){
+				throw sqlex;
+			}
+			catch (Exception ex) {
+				throw ex;
+			}
+		}
+		return p;
+	}
 }
