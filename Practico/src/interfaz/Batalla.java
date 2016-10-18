@@ -1,7 +1,5 @@
 package interfaz;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
@@ -31,27 +29,14 @@ import javax.swing.JPanel;
 public class Batalla {
 
 	private JFrame frmBatalla;
-	private ControladorPersonaje ctrldorPer;
 	private JPanel panelWest;
 	private JPanel panelEast;
 	private panelSeleccion panelJug1 = new panelSeleccion();
 	private panelSeleccion panelJug2 = new panelSeleccion();
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Batalla window = new Batalla();
-					window.frmBatalla.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JPanel panel;
+	private JLabel lblNewLabel;
+	private JButton btnIniciarBatalla;
+	private JLabel lblNewLabel_1;
 
 	/**
 	 * Create the application.
@@ -74,6 +59,18 @@ public class Batalla {
 		
 		panelEast = new JPanel();
 		frmBatalla.getContentPane().add(panelEast, BorderLayout.EAST);
+		
+		panel = new JPanel();
+		frmBatalla.getContentPane().add(panel, BorderLayout.SOUTH);
+		
+		lblNewLabel = new JLabel("   ");
+		panel.add(lblNewLabel);
+		
+		btnIniciarBatalla = new JButton("Iniciar Batalla");
+		panel.add(btnIniciarBatalla);
+		
+		lblNewLabel_1 = new JLabel("  ");
+		panel.add(lblNewLabel_1);
 		addPanels();
 	}
 	

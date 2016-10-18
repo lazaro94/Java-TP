@@ -27,9 +27,9 @@ import java.awt.event.InputMethodEvent;
 
 public class Personajes {
 
-	/* Los botones están solamente presentados.
+	/* Los botones estï¿½n solamente presentados.
 	 * Hay que agrupar los textbox del formulario. 
-	 * Ver como manejar en el código cuando un personaje es nuevo y cuando se editó uno existente.
+	 * Ver como manejar en el cï¿½digo cuando un personaje es nuevo y cuando se editï¿½ uno existente.
 	 * Para saber si se tiene que insertar en la BD o modificar uno existente.
 	 * */
 	
@@ -47,23 +47,6 @@ public class Personajes {
 	private JLabel lblTotal;
 	
 	private Validate validate;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Personajes window = new Personajes();
-					window.frmPersonajes.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the application.
 	 */
@@ -244,7 +227,7 @@ public class Personajes {
 	}
 	// CODIGO DE LOS EVENTOS DE LOS BOTONES //
 	private void guardar(){
-		if (!validarDatos()){ //El mismo método informa el error
+		if (!validarDatos()){ //El mismo mï¿½todo informa el error
 			return; 
 		}		
 		personaje.setDefensa(Integer.valueOf(textDefensa.getText()));
@@ -338,13 +321,13 @@ public class Personajes {
 	}
 	
 	private Boolean validarDatos(){
-		//Valido que los textboxs contengan solamente números!
+		//Valido que los textboxs contengan solamente nï¿½meros!
 		validate = new Validate();
 		if(!validate.numeroDecimal(textDefensa.getText()) || !validate.numeroDecimal(textEnergia.getText()) || !validate.numeroDecimal(textEvasion.getText()) || !validate.numeroDecimal(textVida.getText())){			
-			informarError("Los datos deben ser númericos");
+			informarError("Los datos deben ser nï¿½mericos");
 			return false;
 		}
-		//El nombre no puede estar vacío
+		//El nombre no puede estar vacï¿½o
 		if (!validate.notEmpty(textNombre.getText())) {
 			informarError("Debe ingresar un nombre");
 			return false;

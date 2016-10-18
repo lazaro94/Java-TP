@@ -110,6 +110,7 @@ public class panelSeleccion extends JPanel {
 		txtEnergia = new JTextField();
 		add(txtEnergia, "4, 10, fill, default");
 		txtEnergia.setColumns(10);
+		txtEnergia.setEnabled(false);
 		
 		JLabel lblVida = new JLabel("Vida:");
 		add(lblVida, "2, 14, right, default");
@@ -117,6 +118,7 @@ public class panelSeleccion extends JPanel {
 		txtVida = new JTextField();
 		add(txtVida, "4, 14, fill, default");
 		txtVida.setColumns(10);
+		txtVida.setEnabled(false);
 		
 		JLabel lblEvasion = new JLabel("Evasion:");
 		add(lblEvasion, "2, 18, right, default");
@@ -124,6 +126,7 @@ public class panelSeleccion extends JPanel {
 		txtEvasion = new JTextField();
 		add(txtEvasion, "4, 18, fill, top");
 		txtEvasion.setColumns(10);
+		txtEvasion.setEnabled(false);
 		
 		JLabel lblDefensa = new JLabel("Defensa:");
 		add(lblDefensa, "2, 22, right, default");
@@ -131,6 +134,7 @@ public class panelSeleccion extends JPanel {
 		txtDefensa = new JTextField();
 		add(txtDefensa, "4, 22, fill, default");
 		txtDefensa.setColumns(10);
+		txtDefensa.setEnabled(false);
 		
 		JLabel lblPuntos = new JLabel("Puntos:");
 		add(lblPuntos, "2, 26, right, default");
@@ -138,6 +142,7 @@ public class panelSeleccion extends JPanel {
 		txtPuntos = new JTextField();
 		add(txtPuntos, "4, 26, fill, default");
 		txtPuntos.setColumns(10);
+		txtPuntos.setEnabled(false);
 		
 		btnSeleccionar = new JButton("Seleccionar");
 		btnSeleccionar.addActionListener(new ActionListener() {
@@ -191,16 +196,20 @@ public class panelSeleccion extends JPanel {
 	}
 	private void lockControls(){
 		comboPersonajes.setEnabled(false);
-		txtVida.setEnabled(false);
-		txtEvasion.setEnabled(false);
-		txtDefensa.setEnabled(false);
-		txtEnergia.setEnabled(false);
-		txtPuntos.setEnabled(false);
 		btnSeleccionar.setEnabled(false);
 	}
-	//Este metodo lo uso en la pantalla de batallas para obtener que personaje seleccionó cada jugador
+	
 	public Personaje getSeleccionado(){
 		return personajeSeleccionado;
+	}
+	
+	public boolean isSeleccionado(){
+		if(personajeSeleccionado!=null){
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	public void setTitle(String titulo){
