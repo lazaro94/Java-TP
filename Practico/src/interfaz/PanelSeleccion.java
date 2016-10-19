@@ -1,5 +1,6 @@
 package interfaz;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -38,6 +39,8 @@ public class PanelSeleccion extends JPanel {
 	public PanelSeleccion() {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
+		
+		this.setPreferredSize(new Dimension(400, 400));
 		
 		lblTitle = new JLabel("title");
 		springLayout.putConstraint(SpringLayout.NORTH, lblTitle, 10, SpringLayout.NORTH, this);
