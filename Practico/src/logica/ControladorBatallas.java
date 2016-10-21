@@ -12,40 +12,14 @@ public class ControladorBatallas {
 	private CatalogoPersonajes cp;
 	private Personaje personaje1 = new Personaje();
 	private Personaje personaje2 = new Personaje();
-	
-	public int generarTurno(){
-		Random r = new Random();
-		if(r.nextFloat()<0.5){
-			return 1;
-		}
-		else {
-			return 2;
-		}
-	}
 
-	public void setPersonaje1(String nombre) throws Exception{
+	public void setPersonaje(String nombre) throws Exception{
 		
 		cp = new CatalogoPersonajes();
 		Personaje p = new Personaje();
 		p.setNombre(nombre);
 		try{
 			personaje1=cp.getByNombre(p);			
-		}
-		catch(SQLException sqlex){
-			throw sqlex;
-		}
-		catch(Exception ex){
-			throw ex;
-		}
-	}
-	
-	public void setPersonaje2(String nombre) throws Exception{
-		
-		cp = new CatalogoPersonajes();
-		Personaje p = new Personaje();
-		p.setNombre(nombre);
-		try{
-			personaje2=cp.getByNombre(p);			
 		}
 		catch(SQLException sqlex){
 			throw sqlex;
