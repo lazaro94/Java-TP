@@ -40,7 +40,7 @@ public class PanelSeleccion extends JPanel {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		
-		this.setPreferredSize(new Dimension(400, 400));
+		this.setPreferredSize(new Dimension(248, 414));
 		
 		lblTitle = new JLabel("title");
 		springLayout.putConstraint(SpringLayout.NORTH, lblTitle, 10, SpringLayout.NORTH, this);
