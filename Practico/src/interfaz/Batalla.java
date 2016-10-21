@@ -26,7 +26,7 @@ import java.awt.Color;
 
 public class Batalla {
 
-	private JFrame frame;
+	private JFrame frmBatalla;
 	private PanelSeleccion panelJug1 = new PanelSeleccion();
 	private PanelSeleccion panelJug2 = new PanelSeleccion();
 	private Personaje personaje1 = new Personaje();
@@ -35,32 +35,13 @@ public class Batalla {
 	private JButton btnDefender1;
 	private JButton btnAtacar1;
 	private JButton btnDefender2;
-	private ControladorBatallas cb;
+	private ControladorBatallas cb = new ControladorBatallas();
 	private JTextField txtEnergia2;
 	private JTextField txtEnergia1;
 	private JLabel lblVida2;
 	private JLabel lblVida1;
 	private JLabel lblEnergia1;
 	private JLabel lblEnergia2;
-	
-	
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Batalla window = new Batalla();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the application.
 	 */
@@ -72,15 +53,15 @@ public class Batalla {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 717, 487);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		frmBatalla = new JFrame();
+		frmBatalla.setBounds(100, 100, 717, 487);
+		frmBatalla.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmBatalla.getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		frame.setPreferredSize(new Dimension(700, 600));
+		frmBatalla.setPreferredSize(new Dimension(700, 600));
 		
 		JPanel panelSouth = new JPanel();
-		frame.getContentPane().add(panelSouth, BorderLayout.SOUTH);
+		frmBatalla.getContentPane().add(panelSouth, BorderLayout.SOUTH);
 		
 		JButton btnIniciarBatalla = new JButton("Iniciar Batalla");
 		btnIniciarBatalla.addActionListener(new ActionListener() {
@@ -89,18 +70,18 @@ public class Batalla {
 			}
 		});
 		panelSouth.add(btnIniciarBatalla);
-		frame.setPreferredSize(new Dimension(600, 400));
+		frmBatalla.setPreferredSize(new Dimension(600, 400));
 		addPanels();
 	}
 	
 	private void addPanels(){
 		panelJug1.setTitle("Jugador 1");
 		panelJug2.setTitle("Jugador 2");
-		frame.getContentPane().add(panelJug1, BorderLayout.EAST);
-		frame.getContentPane().add(panelJug2, BorderLayout.WEST);
+		frmBatalla.getContentPane().add(panelJug1, BorderLayout.EAST);
+		frmBatalla.getContentPane().add(panelJug2, BorderLayout.WEST);
 		
 		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		frmBatalla.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
 		btnAtacar2 = new JButton("Atacar");
@@ -111,6 +92,7 @@ public class Batalla {
 		});
 		btnAtacar2.setBounds(0, 65, 94, 23);
 		panel.add(btnAtacar2);
+		btnAtacar2.setEnabled(false);
 		
 		btnAtacar1 = new JButton("Atacar");
 		btnAtacar1.addActionListener(new ActionListener() {
@@ -120,6 +102,7 @@ public class Batalla {
 		});
 		btnAtacar1.setBounds(115, 65, 94, 23);
 		panel.add(btnAtacar1);
+		btnAtacar1.setEnabled(false);
 		
 		btnDefender2 = new JButton("Defender");
 		btnDefender2.addActionListener(new ActionListener() {
@@ -129,6 +112,7 @@ public class Batalla {
 		});
 		btnDefender2.setBounds(10, 278, 77, 23);
 		panel.add(btnDefender2);
+		btnDefender2.setEnabled(false);
 		
 		btnDefender1 = new JButton("Defender");
 		btnDefender1.addActionListener(new ActionListener() {
@@ -138,6 +122,7 @@ public class Batalla {
 		});
 		btnDefender1.setBounds(118, 278, 77, 23);
 		panel.add(btnDefender1);
+		btnDefender1.setEnabled(false);
 		
 		lblVida2 = new JLabel("Vida2:");
 		lblVida2.setBounds(10, 173, 84, 14);
@@ -151,6 +136,7 @@ public class Batalla {
 		txtEnergia2.setBounds(0, 232, 75, 23);
 		panel.add(txtEnergia2);
 		txtEnergia2.setColumns(10);
+		txtEnergia2.setEnabled(false);
 		
 		lblEnergia2 = new JLabel("Energia2");
 		lblEnergia2.setBounds(10, 207, 84, 14);
@@ -160,41 +146,56 @@ public class Batalla {
 		txtEnergia1.setBounds(130, 233, 75, 22);
 		panel.add(txtEnergia1);
 		txtEnergia1.setColumns(10);
+		txtEnergia1.setEnabled(false);
 		
 		lblEnergia1 = new JLabel("Energia1");
 		lblEnergia1.setBounds(115, 207, 94, 14);
 		panel.add(lblEnergia1);
 	}
 	private void batalla(){
-		cb = new ControladorBatallas();
 		if (!panelJug1.isSeleccionado() || !panelJug2.isSeleccionado()){
 			informarError("Ambos jugadores deben seleccionar un personaje");
 			return;
 		}
-		personaje1=panelJug1.getSeleccionado();
-		personaje2=panelJug2.getSeleccionado();
-		setTurno();
-		
+		try{
+			cb.setPersonaje1(panelJug1.getSeleccionado());
+			cb.setPersonaje2(panelJug2.getSeleccionado());
+			actualizarEstados();
+		}
+		catch(Exception ex){
+			
+		}
+		setTurno(cb.generarTurno());		
 	}
 	
 	private void informarError(String mensaje){
-		JOptionPane.showMessageDialog(frame, mensaje, "Batallas", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(frmBatalla, mensaje, "Batallas", JOptionPane.ERROR_MESSAGE);
 	}
 
-	private void setTurno(){
-		cb = new ControladorBatallas();
-		if(cb.cambioTurno()==1){
+	private void setTurno(int turno){
+		if(turno==1){
+			txtEnergia1.setEnabled(true);
+			txtEnergia2.setEnabled(false);
 			btnAtacar2.setEnabled(false);
-			btnDefender2.setEnabled(false);}
+			btnDefender2.setEnabled(false);
+			btnAtacar1.setEnabled(true);
+			btnDefender1.setEnabled(true);	
+		}
+
 		else{
+			txtEnergia2.setEnabled(true);
 			btnAtacar1.setEnabled(false);
-			btnDefender1.setEnabled(false);}
+			btnDefender1.setEnabled(false);
+			btnAtacar2.setEnabled(true);
+			btnDefender2.setEnabled(true);	
+			txtEnergia1.setEnabled(false);
+		}
+		
 		}
 	
 	//Despues de cada ataque/defensa hay que actualizar el estado de cada 
 	//personaje en la interfaz
 	private void atacar(){
-		cb = new ControladorBatallas();
 		try{
 			if(cb.getTurnoActual()==1){
 				cb.ataque(Integer.valueOf(txtEnergia1.getText()));
@@ -202,18 +203,21 @@ public class Batalla {
 			else {
 				cb.ataque(Integer.valueOf(txtEnergia2.getText()));
 			}
+			setTurno(cb.cambioTurno());
+			actualizarEstados();
 		}
 		catch(Exception ex){
-			
+			JOptionPane.showMessageDialog(frmBatalla, ex.getMessage());
 		}
 	}
 	
 	private void defender(){
 		cb.defensa();
+		setTurno(cb.cambioTurno());
+		actualizarEstados();
 	}
 	
 	public void actualizarEstados(){
-		cb = new ControladorBatallas();
 		Personaje p = new Personaje();
 		p=cb.getPersonaje1();
 		lblVida1.setText("Vida: " + p.getVidaBatalla());
@@ -222,6 +226,10 @@ public class Batalla {
 		p=cb.getPersonaje2();
 		lblVida2.setText("Vida: " + p.getVidaBatalla());
 		lblEnergia2.setText("Energia: " + p.getEnergiaBatalla());
+	}
+	
+	public void open(){
+		frmBatalla.setVisible(true);
 	}
 }  
 

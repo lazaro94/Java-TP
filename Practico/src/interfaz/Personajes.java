@@ -121,6 +121,12 @@ public class Personajes {
 			panel.add(lblVida);
 			
 			textVida = new JTextField();
+			textVida.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					clickText();
+				}
+			});
 			textVida.addInputMethodListener(new InputMethodListener() {
 				public void caretPositionChanged(InputMethodEvent arg0) {
 				}
@@ -137,6 +143,12 @@ public class Personajes {
 			panel.add(lblDefensa);
 			
 			textDefensa = new JTextField();
+			textDefensa.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					clickText();
+				}
+			});
 			textDefensa.addInputMethodListener(new InputMethodListener() {
 				public void caretPositionChanged(InputMethodEvent event) {
 				}
@@ -153,6 +165,12 @@ public class Personajes {
 			panel.add(lblEvasion);
 			
 			textEvasion = new JTextField();
+			textEvasion.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					clickText();
+				}
+			});
 			textEvasion.addInputMethodListener(new InputMethodListener() {
 				public void caretPositionChanged(InputMethodEvent event) {
 				}
@@ -169,6 +187,12 @@ public class Personajes {
 			panel.add(lblEnergia);
 			
 			textEnergia = new JTextField();
+			textEnergia.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					clickText();
+				}
+			});
 			textEnergia.addInputMethodListener(new InputMethodListener() {
 				public void caretPositionChanged(InputMethodEvent event) {
 				}
@@ -280,10 +304,10 @@ public class Personajes {
 	
 	private void limpiarFormulario(){
 		textNombre.setText("");
-		textEnergia.setText("");
-		textVida.setText("");
-		textEvasion.setText("");
-		textDefensa.setText("");
+		textEnergia.setText("0");
+		textVida.setText("0");
+		textEvasion.setText("0");
+		textDefensa.setText("0");
 	}
 	
 	private void noEditable(){
@@ -332,6 +356,18 @@ public class Personajes {
 			informarError("Debe ingresar un nombre");
 			return false;
 		}
+		if(Integer.valueOf(textEnergia.getText()) + Integer.valueOf(textVida.getText()) + Integer.valueOf(textEvasion.getText()) + Integer.valueOf(textDefensa.getText())>200){
+			informarError("No puede superar los 200 puntos");
+			return false;
+		}
 		return true;
+	}
+	public void open(){
+		frmPersonajes.setVisible(true);
+	}
+	
+	public void clickText(){
+		int total=	Integer.valueOf(textEnergia.getText()) + Integer.valueOf(textVida.getText()) + Integer.valueOf(textEvasion.getText()) + Integer.valueOf(textDefensa.getText());
+		lblTotal.setText("Total= " + String.valueOf(200-total));
 	}
 }

@@ -126,7 +126,7 @@ public class CatalogoPersonajes {
 				p.setDefensa(rs.getInt("Defensa"));
 				p.setEnergia(rs.getDouble("Energia"));
 				p.setEvasion(rs.getInt("Evasion"));
-				p.setPtosTotales(rs.getInt("PuntosTotales"));
+				p.setPtosTotales(rs.getInt("Puntos"));
 				p.setVida(rs.getDouble("Vida"));
 			}
 		}
@@ -151,5 +151,36 @@ public class CatalogoPersonajes {
 			}
 		}
 		return p;
+	}
+	
+	public void setPuntos(Personaje p) throws Exception{
+		PreparedStatement stmt = null;
+		String query = "UPDATE Personajes SET Puntos=? WHERE idPersonaje=?";
+		try{
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(query);
+			stmt.setInt(1, p.getPtosTotales());
+			stmt.setInt(2, p.getCodigo());
+			stmt.executeUpdate();
+		}
+		catch(SQLException sqlex){
+			throw sqlex;
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		finally{
+			try {
+				if(stmt!=null){
+					stmt.close();
+				}
+				FactoryConexion.getInstancia().releaseConn();
+			}
+			catch(SQLException sqlex){
+				throw sqlex;
+			}
+			catch (Exception ex) {
+				throw ex;
+			}
+		}
 	}
 }

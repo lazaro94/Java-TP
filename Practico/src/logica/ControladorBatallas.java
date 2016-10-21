@@ -12,11 +12,10 @@ public class ControladorBatallas {
 	private CatalogoPersonajes cp;
 	private Personaje personaje1 = new Personaje();
 	private Personaje personaje2 = new Personaje();
-	private int turno;
+	private static int turno;
 
 	public int generarTurno(){
 		Random r = new Random();
-		
 		if(r.nextFloat()>0.5){
 			turno=1;
 			return turno;
@@ -41,13 +40,28 @@ public class ControladorBatallas {
 		}
 	}
 	
-	public void setPersonaje(String nombre) throws Exception{
+	public void setPersonaje1(Personaje p) throws Exception{
 		
 		cp = new CatalogoPersonajes();
-		Personaje p = new Personaje();
-		p.setNombre(nombre);
 		try{
-			personaje1=cp.getByNombre(p);			
+			personaje1=cp.getByNombre(p);
+			personaje1.setVidaBatalla(personaje1.getVida());
+			personaje1.setEnergiaBatalla(personaje1.getEnergia());
+		}
+		catch(SQLException sqlex){
+			throw sqlex;
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
+	public void setPersonaje2(Personaje p) throws Exception{
+		
+		cp = new CatalogoPersonajes();
+		try{
+			personaje2=cp.getByNombre(p);
+			personaje2.setVidaBatalla(personaje2.getVida());
+			personaje2.setEnergiaBatalla(personaje2.getEnergia());
 		}
 		catch(SQLException sqlex){
 			throw sqlex;
@@ -57,13 +71,20 @@ public class ControladorBatallas {
 		}
 	}
 
-	public void ataque(int energia) throws AppException{		
+	public void ataque(int energia) throws Exception{		
 		switch(turno){
 		case 1:
 			if(!personaje2.evadeAtaque()){
 				personaje2.setVidaBatalla(personaje2.getVidaBatalla()-energia);
 				if (personaje2.getVidaBatalla()<=0){
-					throw new AppException("El personaje 2 fue derrotado");
+					try{
+						personaje1.setPtosTotales(personaje1.getPtosTotales()+10);
+						cp.setPuntos(personaje1);
+						throw new AppException("El personaje 2 fue derrotado");
+					}
+					catch(Exception ex){
+						throw ex;
+					}
 				}
 			}
 			personaje1.setEnergiaBatalla(personaje1.getEnergiaBatalla()-energia);
@@ -72,7 +93,14 @@ public class ControladorBatallas {
 			if(!personaje1.evadeAtaque()){
 				personaje1.setVidaBatalla(personaje1.getVidaBatalla()-energia);
 				if (personaje1.getVidaBatalla()<=0){
-					throw new AppException("El personaje 1 fue derrotado");
+					try{
+						personaje2.setPtosTotales(personaje2.getPtosTotales()+10);
+						cp.setPuntos(personaje2);
+						throw new AppException("El personaje 1 fue derrotado");		
+					}
+					catch(Exception ex){
+						throw ex;
+					}
 				}
 			}
 			personaje2.setEnergiaBatalla(personaje2.getEnergiaBatalla()-energia);
