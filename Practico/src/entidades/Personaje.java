@@ -100,15 +100,23 @@ public class Personaje {
 	}
 	
 	public void defender(){
-		//Energia a recuperar= energiaOrigina * defensa / 100
-		//Vida a recuperar = vidaOriginal * defensa / 250
-		double resultado = (this.energia*this.defensa)/100;
-		if((resultado+energiaBatalla)>this.energia){
-			energiaBatalla=(resultado-energia);
+		//EnergiaRecuperada = energiaOrigina * defensa / 100
+		//VidaRecuperada = vidaOriginal * defensa / 250
+		double energiaRecuperada = (this.energia*this.defensa)/100;
+		if((energiaRecuperada+energiaBatalla)>this.energia){
+			energiaBatalla+=(energia-energiaBatalla);
 		}
-		{
-			
+		else{
+			energiaBatalla+=energiaRecuperada;
 		}
+		
+		double vidaRecuperada = (this.energia*this.defensa)/250;
+		if((vidaRecuperada+vidaBatalla)>this.vida){
+			vidaBatalla+=(vida-vidaBatalla);
+		}
+		else{
+			vidaBatalla+=vidaRecuperada;
+		}		
 	}
 	
 	//Uso este override para agregar personajes a los combobox
