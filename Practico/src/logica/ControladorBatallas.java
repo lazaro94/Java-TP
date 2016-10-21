@@ -12,7 +12,32 @@ public class ControladorBatallas {
 	private CatalogoPersonajes cp;
 	private Personaje personaje1 = new Personaje();
 	private Personaje personaje2 = new Personaje();
+	private int turno;
 
+	public int generarTurno(){
+		Random r = new Random();
+		
+		if(r.nextFloat()>0.5){
+			turno=1;
+			return turno;
+		}
+		else{
+			turno=2;
+			return turno;
+		}
+			
+	}
+	
+	public int getTurnoActual(){
+		if(turno==1){
+			turno=2;
+			return turno;
+		}
+		else{
+			return(turno=1);
+		}
+	}
+	
 	public void setPersonaje(String nombre) throws Exception{
 		
 		cp = new CatalogoPersonajes();
@@ -29,20 +54,20 @@ public class ControladorBatallas {
 		}
 	}
 
-	public void ataque(Personaje atacante, Personaje atacado, int energia) throws AppException{
-		Random r = new Random();
-		
-		if(atacante.getEnergia()<energia) {
-			throw new AppException("La energ�a a utilizar es mayor a la disponible");
+	public void ataque(int energia) throws AppException{		
+		switch(turno){
+		case 1:
+			if(!personaje2.evadeAtaque()){
+				personaje2.setVida(personaje2.getVida()-energia);
+			}
+			personaje1.setEnergia(personaje1.getEnergia()-energia);
+			break;
+		case 2:
+			if(!personaje1.evadeAtaque()){
+				personaje1.setVida(personaje1.getVida()-energia);
+			}
+			personaje2.setEnergia(personaje2.getEnergia()-energia);
 		}
-		
-		if (atacado.evadeAtaque()){
-			//EVADE EL ATAQUE
-		}
-		else {
-			//RECIBE EL ATAQUE
-		}
-		atacante.setEnergia((atacante.getEnergia()-energia));
 	}
 	
 	public void defensa(){

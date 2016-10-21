@@ -132,7 +132,8 @@ public class Batalla {
 		}
 		personaje1=panelJug1.getSeleccionado();
 		personaje2=panelJug2.getSeleccionado();
-		setturno(cb.ge)
+		setturno(cb.generarTurno());
+		
 	}
 	
 	private void informarError(String mensaje){

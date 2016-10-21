@@ -11,6 +11,8 @@ public class Personaje {
 	private int defensa;
 	private int evasion;
 	private int ptosTotales;
+	private double vidaBatalla;
+	private double energiaBatalla;
 	
 	public Personaje(int codigo, String nombre, int defensa, int evasion, int ptosTotales, double vida, double energia){
 		this.codigo=codigo;
@@ -19,11 +21,26 @@ public class Personaje {
 		this.evasion=evasion;
 		this.ptosTotales=ptosTotales;
 		this.vida=vida;
-		this.energia=energia;		
+		this.energia=energia;	
 	}
 	
+	public double getVidaBatalla() {
+		return vidaBatalla;
+	}
+
+	public void setVidaBatalla(double vidaBatalla) {
+		this.vidaBatalla = vidaBatalla;
+	}
+
+	public double getEnergiaBatalla() {
+		return energiaBatalla;
+	}
+
+	public void setEnergiaBatalla(double energiaBatalla) {
+		this.energiaBatalla = energiaBatalla;
+	}
+
 	public Personaje(){
-		
 	}
 	public int getCodigo() {
 		return codigo;
