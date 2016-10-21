@@ -1,12 +1,49 @@
 package logica;
 
+import java.sql.SQLException;
 import java.util.Random;
 
+import datos.CatalogoPersonajes;
 import entidades.Personaje;
 import util.AppException;
 
 public class ControladorBatallas {
+	
+	private CatalogoPersonajes cp;
+	private Personaje personaje1 = new Personaje();
+	private Personaje personaje2 = new Personaje();
 
+	public void setPersonaje1(String nombre) throws Exception{
+		
+		cp = new CatalogoPersonajes();
+		Personaje p = new Personaje();
+		p.setNombre(nombre);
+		try{
+			personaje1=cp.getByNombre(p);			
+		}
+		catch(SQLException sqlex){
+			throw sqlex;
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
+	
+	public void setPersonaje2(String nombre) throws Exception{
+		
+		cp = new CatalogoPersonajes();
+		Personaje p = new Personaje();
+		p.setNombre(nombre);
+		try{
+			personaje2=cp.getByNombre(p);			
+		}
+		catch(SQLException sqlex){
+			throw sqlex;
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
 
 	public void ataque(Personaje atacante, Personaje atacado, int energia) throws AppException{
 		Random r = new Random();

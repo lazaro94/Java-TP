@@ -9,6 +9,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
+
+import entidades.Personaje;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -19,6 +22,9 @@ public class Batalla {
 	private JFrame frame;
 	private PanelSeleccion panelJug1 = new PanelSeleccion();
 	private PanelSeleccion panelJug2 = new PanelSeleccion();
+	private Personaje personaje1 = new Personaje();
+	private Personaje personaje2 = new Personaje();
+	
 
 	/**
 	 * Launch the application.
@@ -77,7 +83,10 @@ public class Batalla {
 	private void batalla(){
 		if (!panelJug1.isSeleccionado() || !panelJug2.isSeleccionado()){
 			informarError("Ambos jugadores deben seleccionar un personaje");
+			return;
 		}
+		personaje1=panelJug1.getSeleccionado();
+		personaje2=panelJug2.getSeleccionado();
 	}
 	
 	private void informarError(String mensaje){
