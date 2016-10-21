@@ -54,8 +54,8 @@ public class Batalla {
 	 */
 	private void initialize() {
 		frmBatalla = new JFrame();
-		frmBatalla.setBounds(100, 100, 717, 487);
-		frmBatalla.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmBatalla.setBounds(100, 100, 769, 536);
+		frmBatalla.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmBatalla.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		frmBatalla.setPreferredSize(new Dimension(700, 600));
@@ -83,6 +83,7 @@ public class Batalla {
 		JPanel panel = new JPanel();
 		frmBatalla.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
+		panel.setMinimumSize(new Dimension(800, 800));
 		
 		btnAtacar2 = new JButton("Atacar");
 		btnAtacar2.addActionListener(new ActionListener() {
@@ -90,7 +91,7 @@ public class Batalla {
 				atacar();
 			}
 		});
-		btnAtacar2.setBounds(0, 65, 94, 23);
+		btnAtacar2.setBounds(0, 65, 128, 23);
 		panel.add(btnAtacar2);
 		btnAtacar2.setEnabled(false);
 		
@@ -100,7 +101,7 @@ public class Batalla {
 				atacar();
 			}
 		});
-		btnAtacar1.setBounds(115, 65, 94, 23);
+		btnAtacar1.setBounds(140, 65, 121, 23);
 		panel.add(btnAtacar1);
 		btnAtacar1.setEnabled(false);
 		
@@ -110,7 +111,7 @@ public class Batalla {
 				defender();
 			}
 		});
-		btnDefender2.setBounds(10, 278, 77, 23);
+		btnDefender2.setBounds(10, 278, 118, 23);
 		panel.add(btnDefender2);
 		btnDefender2.setEnabled(false);
 		
@@ -120,16 +121,16 @@ public class Batalla {
 				defender();
 			}
 		});
-		btnDefender1.setBounds(118, 278, 77, 23);
+		btnDefender1.setBounds(140, 278, 121, 23);
 		panel.add(btnDefender1);
 		btnDefender1.setEnabled(false);
 		
-		lblVida2 = new JLabel("Vida2:");
+		lblVida2 = new JLabel("");
 		lblVida2.setBounds(10, 173, 84, 14);
 		panel.add(lblVida2);
 		
-		lblVida1 = new JLabel("Vida 1:");
-		lblVida1.setBounds(128, 173, 81, 14);
+		lblVida1 = new JLabel("");
+		lblVida1.setBounds(180, 173, 81, 14);
 		panel.add(lblVida1);
 		
 		txtEnergia2 = new JTextField();
@@ -138,18 +139,18 @@ public class Batalla {
 		txtEnergia2.setColumns(10);
 		txtEnergia2.setEnabled(false);
 		
-		lblEnergia2 = new JLabel("Energia2");
-		lblEnergia2.setBounds(10, 207, 84, 14);
+		lblEnergia2 = new JLabel("");
+		lblEnergia2.setBounds(10, 207, 106, 14);
 		panel.add(lblEnergia2);
 		
 		txtEnergia1 = new JTextField();
-		txtEnergia1.setBounds(130, 233, 75, 22);
+		txtEnergia1.setBounds(174, 233, 75, 22);
 		panel.add(txtEnergia1);
 		txtEnergia1.setColumns(10);
 		txtEnergia1.setEnabled(false);
 		
-		lblEnergia1 = new JLabel("Energia1");
-		lblEnergia1.setBounds(115, 207, 94, 14);
+		lblEnergia1 = new JLabel("");
+		lblEnergia1.setBounds(167, 199, 94, 14);
 		panel.add(lblEnergia1);
 	}
 	private void batalla(){

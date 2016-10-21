@@ -24,6 +24,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Personajes {
 
@@ -61,9 +63,14 @@ public class Personajes {
 	 */
 	private void initialize() {
 		frmPersonajes = new JFrame();
+		frmPersonajes.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+			}
+		});
 		frmPersonajes.setTitle("Personajes");
 		frmPersonajes.setBounds(100, 100, 747, 540);
-		frmPersonajes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmPersonajes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		tablePersonajes = new JTable();
 		tablePersonajes.addMouseListener(new MouseAdapter() {
@@ -357,7 +364,11 @@ public class Personajes {
 			return false;
 		}
 		if(Integer.valueOf(textEnergia.getText()) + Integer.valueOf(textVida.getText()) + Integer.valueOf(textEvasion.getText()) + Integer.valueOf(textDefensa.getText())>200){
-			informarError("No puede superar los 200 puntos");
+			informarError("No puede asignar mas de 200 puntos");
+			return false;
+		}
+		if(Integer.valueOf(textDefensa.getText())>20){
+			informarError("La defensa no puede ser superior a los 20 puntos");
 			return false;
 		}
 		return true;

@@ -74,6 +74,9 @@ public class ControladorBatallas {
 	public void ataque(int energia) throws Exception{		
 		switch(turno){
 		case 1:
+			if(personaje1.getEnergiaBatalla()<energia){
+				throw new AppException("La energía ingresada es superior a la disponible");
+			}
 			if(!personaje2.evadeAtaque()){
 				personaje2.setVidaBatalla(personaje2.getVidaBatalla()-energia);
 				if (personaje2.getVidaBatalla()<=0){
@@ -90,6 +93,9 @@ public class ControladorBatallas {
 			personaje1.setEnergiaBatalla(personaje1.getEnergiaBatalla()-energia);
 			break;
 		case 2:
+			if(personaje2.getEnergiaBatalla()<energia){
+				throw new AppException("La energía ingresada es superior a la disponible");
+			}
 			if(!personaje1.evadeAtaque()){
 				personaje1.setVidaBatalla(personaje1.getVidaBatalla()-energia);
 				if (personaje1.getVidaBatalla()<=0){

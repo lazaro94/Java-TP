@@ -40,24 +40,27 @@ public class Inicial {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 447, 224);
+		frame.setBounds(100, 100, 450, 200);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton btnAbmPersonajes = new JButton("ABM Personajes");
+		btnAbmPersonajes.setBounds(50, 60, 150, 50);
 		btnAbmPersonajes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clickAbm();
 			}
 		});
-		frame.getContentPane().add(btnAbmPersonajes, BorderLayout.WEST);
+		frame.getContentPane().setLayout(null);
+		frame.getContentPane().add(btnAbmPersonajes);
 		
 		JButton btnBatalla = new JButton("Batalla");
+		btnBatalla.setBounds(250, 60, 150, 50);
 		btnBatalla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clickBatalla();
 			}
 		});
-		frame.getContentPane().add(btnBatalla, BorderLayout.EAST);
+		frame.getContentPane().add(btnBatalla);
 	}
 
 	private void clickAbm(){
