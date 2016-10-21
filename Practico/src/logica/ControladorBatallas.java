@@ -12,6 +12,16 @@ public class ControladorBatallas {
 	private CatalogoPersonajes cp;
 	private Personaje personaje1 = new Personaje();
 	private Personaje personaje2 = new Personaje();
+	
+	public int generarTurno(){
+		Random r = new Random();
+		if(r.nextFloat()<0.5){
+			return 1;
+		}
+		else {
+			return 2;
+		}
+	}
 
 	public void setPersonaje1(String nombre) throws Exception{
 		
