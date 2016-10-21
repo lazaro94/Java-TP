@@ -58,15 +58,15 @@ public class ControladorBatallas {
 		switch(turno){
 		case 1:
 			if(!personaje2.evadeAtaque()){
-				personaje2.setVida(personaje2.getVida()-energia);
+				personaje2.setVidaBatalla(personaje2.getVidaBatalla()-energia);
 			}
-			personaje1.setEnergia(personaje1.getEnergia()-energia);
+			personaje1.setEnergiaBatalla(personaje1.getEnergiaBatalla()-energia);
 			break;
 		case 2:
 			if(!personaje1.evadeAtaque()){
-				personaje1.setVida(personaje1.getVida()-energia);
+				personaje1.setVidaBatalla(personaje1.getVidaBatalla()-energia);
 			}
-			personaje2.setEnergia(personaje2.getEnergia()-energia);
+			personaje2.setEnergiaBatalla(personaje2.getEnergiaBatalla()-energia);
 		}
 	}
 	

@@ -36,6 +36,8 @@ public class Batalla {
 	private JButton btnAtacar1;
 	private JButton btnDefender2;
 	private ControladorBatallas cb = new ControladorBatallas();
+	private JTextField textFieldEnergia2;
+	private JTextField textFieldEnergia1;
 	
 	
 
@@ -106,6 +108,10 @@ public class Batalla {
 		panel.add(btnAtacar2);
 		
 		btnAtacar1 = new JButton("Atacar");
+		btnAtacar1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnAtacar1.setBounds(130, 65, 65, 23);
 		panel.add(btnAtacar1);
 		
@@ -124,6 +130,24 @@ public class Batalla {
 		JLabel lblVida_1 = new JLabel("Vida 1:");
 		lblVida_1.setBounds(149, 173, 46, 14);
 		panel.add(lblVida_1);
+		
+		textFieldEnergia2 = new JTextField();
+		textFieldEnergia2.setBounds(0, 232, 75, 23);
+		panel.add(textFieldEnergia2);
+		textFieldEnergia2.setColumns(10);
+		
+		JLabel lblEnergia2 = new JLabel("Energia2");
+		lblEnergia2.setBounds(10, 207, 46, 14);
+		panel.add(lblEnergia2);
+		
+		textFieldEnergia1 = new JTextField();
+		textFieldEnergia1.setBounds(130, 233, 75, 22);
+		panel.add(textFieldEnergia1);
+		textFieldEnergia1.setColumns(10);
+		
+		JLabel lblLabelEner1 = new JLabel("Energia1");
+		lblLabelEner1.setBounds(149, 207, 46, 14);
+		panel.add(lblLabelEner1);
 	}
 	private void batalla(){
 		if (!panelJug1.isSeleccionado() || !panelJug2.isSeleccionado()){
