@@ -12,7 +12,10 @@ public class ControladorBatallas {
 	private CatalogoPersonajes cp;
 	private Personaje personaje1 = new Personaje();
 	private Personaje personaje2 = new Personaje();
-	private static int turno;
+	private int turno;
+	private boolean isOver=false;
+	private String status;
+	
 
 	public int generarTurno(){
 		Random r = new Random();
@@ -83,7 +86,8 @@ public class ControladorBatallas {
 					try{
 						personaje1.setPtosTotales(personaje1.getPtosTotales()+10);
 						cp.setPuntos(personaje1);
-						throw new AppException("El personaje 2 fue derrotado");
+						isOver=true;
+						status="El personaje 1 es el ganador.";
 					}
 					catch(Exception ex){
 						throw ex;
@@ -102,7 +106,8 @@ public class ControladorBatallas {
 					try{
 						personaje2.setPtosTotales(personaje2.getPtosTotales()+10);
 						cp.setPuntos(personaje2);
-						throw new AppException("El personaje 1 fue derrotado");		
+						isOver=true;
+						status="El personaje 2 es el ganador.";
 					}
 					catch(Exception ex){
 						throw ex;
@@ -128,5 +133,13 @@ public class ControladorBatallas {
 	}
 	public Personaje getPersonaje2(){
 		return personaje2;
+	}
+	
+	public boolean isOver(){
+		return isOver;
+	}
+	
+	public String getStatus(){
+		return status;
 	}
 }

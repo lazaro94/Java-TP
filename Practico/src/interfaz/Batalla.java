@@ -1,7 +1,5 @@
 package interfaz;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -16,21 +14,14 @@ import logica.ControladorBatallas;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JSplitPane;
-import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import java.awt.Color;
-
 
 public class Batalla {
 
 	private JFrame frmBatalla;
 	private PanelSeleccion panelJug1 = new PanelSeleccion();
 	private PanelSeleccion panelJug2 = new PanelSeleccion();
-	private Personaje personaje1 = new Personaje();
-	private Personaje personaje2 = new Personaje();
 	private JButton btnAtacar2;
 	private JButton btnDefender1;
 	private JButton btnAtacar1;
@@ -42,6 +33,8 @@ public class Batalla {
 	private JLabel lblVida1;
 	private JLabel lblEnergia1;
 	private JLabel lblEnergia2;
+	private JButton btnIniciarBatalla;
+	private JButton btnReiniciar;
 	/**
 	 * Create the application.
 	 */
@@ -63,7 +56,7 @@ public class Batalla {
 		JPanel panelSouth = new JPanel();
 		frmBatalla.getContentPane().add(panelSouth, BorderLayout.SOUTH);
 		
-		JButton btnIniciarBatalla = new JButton("Iniciar Batalla");
+		btnIniciarBatalla = new JButton("Iniciar Batalla");
 		btnIniciarBatalla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				batalla();
@@ -150,8 +143,18 @@ public class Batalla {
 		txtEnergia1.setEnabled(false);
 		
 		lblEnergia1 = new JLabel("");
-		lblEnergia1.setBounds(167, 199, 94, 14);
+		lblEnergia1.setBounds(155, 199, 106, 14);
 		panel.add(lblEnergia1);
+		
+		btnReiniciar = new JButton("Reiniciar");
+		btnReiniciar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				reiniciar();
+			}
+		});
+		btnReiniciar.setBounds(73, 377, 117, 45);
+		panel.add(btnReiniciar);
+		btnReiniciar.setVisible(false);
 	}
 	private void batalla(){
 		if (!panelJug1.isSeleccionado() || !panelJug2.isSeleccionado()){
@@ -164,7 +167,6 @@ public class Batalla {
 			actualizarEstados();
 		}
 		catch(Exception ex){
-			
 		}
 		setTurno(cb.generarTurno());		
 	}
@@ -204,6 +206,22 @@ public class Batalla {
 			else {
 				cb.ataque(Integer.valueOf(txtEnergia2.getText()));
 			}
+			if(cb.isOver()){
+				JOptionPane.showMessageDialog(frmBatalla, cb.getStatus());
+				if(cb.getTurnoActual()==1){
+					btnAtacar1.setEnabled(false);
+					btnDefender1.setEnabled(false);
+					txtEnergia1.setEnabled(false);
+				}
+				else{
+					btnAtacar2.setEnabled(false);
+					btnDefender2.setEnabled(false);
+					txtEnergia2.setEnabled(false);
+				}
+				btnIniciarBatalla.setEnabled(false);
+				btnReiniciar.setVisible(true);
+				return;
+			}
 			setTurno(cb.cambioTurno());
 			actualizarEstados();
 		}
@@ -212,6 +230,11 @@ public class Batalla {
 		}
 	}
 	
+	private void reiniciar(){
+		Batalla b = new Batalla();
+		frmBatalla.dispose();
+		b.open();
+	}
 	private void defender(){
 		cb.defensa();
 		setTurno(cb.cambioTurno());

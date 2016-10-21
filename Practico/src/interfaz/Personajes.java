@@ -1,6 +1,5 @@
 package interfaz;
 
-import java.awt.EventQueue;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
